@@ -9,28 +9,29 @@ import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";
 import style from "../products.module.css";
 
-const ClothePage: React.FC = () => {
+const FoodPage: React.FC = () => {
   const { containerSpacing } = useApp();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
-  const clothesSample: TProduct = {
-    imageSrc: "/images/clothe_product.jpg",
-    name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
-    price: 699,
+  const foodSample: TProduct = {
+    imageSrc: "/images/food_product.jpg",
+    name: "国華園 食品 １５品目の国産野菜セット 15種1箱 常温 野菜",
+    price: 2680,
     description:
-      "ポリエステル100％素材で生地・縫製もしっかり！ 美しいラインできれいなシルエットを見せてくれます！ パーティ、お祭り、出演はもちろん普段着や、土日祝日、イベント、結婚式、コンサートではひときわ輝く素敵なドレスです。",
+      "たくさんの野菜が自宅に届く！\n" +
+      "野菜をたくさん買うのは重くて大変ですが、ネットなら自宅に届くので便利！使い勝手の良い野菜が10品目必ず入るため当たり外れがなく安心♪",
   };
 
-  const clothes = [
-    clothesSample,
-    clothesSample,
-    clothesSample,
-    clothesSample,
-    clothesSample,
-    clothesSample,
-    clothesSample,
-    clothesSample,
+  const foods = [
+    foodSample,
+    foodSample,
+    foodSample,
+    foodSample,
+    foodSample,
+    foodSample,
+    foodSample,
+    foodSample,
   ];
 
   const handleCardClick = useCallback((product: TProduct) => {
@@ -41,21 +42,21 @@ const ClothePage: React.FC = () => {
   return (
     <div style={{ width: "100%" }}>
       <Image
-        src={"/images/clothe.jpg"}
+        src={"/images/food.jpg"}
         width={700}
         height={475}
         layout={"responsive"}
       />
-      <ProductTitle productCategory={"Clothes"} />
+      <ProductTitle productCategory={"Food"} />
       <Grid
         container
         spacing={containerSpacing}
         className={style.productsWrapper}
       >
-        {clothes.map((clothe, index) => (
+        {foods.map((food, index) => (
           <ProductCard
-            product={clothe}
-            handleClick={() => handleCardClick(clothe)}
+            product={food}
+            handleClick={() => handleCardClick(food)}
             key={index}
           />
         ))}
@@ -70,4 +71,4 @@ const ClothePage: React.FC = () => {
   );
 };
 
-export default ClothePage;
+export default FoodPage;

@@ -23,7 +23,8 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
         onChange={(event) => handleChange(event.target.value)}
       >
         <MenuItem value={Pages.Book}>Book</MenuItem>
-        <MenuItem value={Pages.Clothe}>Clothe</MenuItem>
+        <MenuItem value={Pages.Clothe}>Clothes</MenuItem>
+        <MenuItem value={Pages.Food}>Food</MenuItem>
       </Select>
     </FormControl>
   );

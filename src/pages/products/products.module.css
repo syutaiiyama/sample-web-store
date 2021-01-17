@@ -1,0 +1,9 @@
+.productsWrapper{
+    padding: 0 30px;
+}
+
+@media screen and (max-width: 600px){
+    .productsWrapper{
+        padding: 0 0;
+    }
+}
