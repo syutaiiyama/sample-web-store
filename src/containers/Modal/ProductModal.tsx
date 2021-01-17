@@ -6,6 +6,8 @@ import { Button, Grid, IconButton, Typography } from "@material-ui/core";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
+import { useCart } from "../../contexts/cart/cart.context";
+import { TCartItem } from "../../contexts/cart/cart.type";
 
 type ProductModalProps = {
   product: TProduct;
@@ -17,6 +19,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   closeModal,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const { cartItems, addToCart } = useCart();
 
   const handleAddQuantity = useCallback(() => setQuantity(quantity + 1), [
     quantity,
@@ -29,10 +32,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     setQuantity(quantity - 1);
   }, [quantity]);
 
-  const handleAddToCart = useCallback(() => {
+  const handleAddToCart = useCallback(async () => {
     //TODO: カートの更新
+    const addCartItem: TCartItem = {
+      product: product,
+      quantity: quantity,
+    };
+    await addToCart(addCartItem);
     closeModal();
-  }, []);
+  }, [quantity, product]);
 
   return (
     <div style={{ maxWidth: "90%", maxHeight: "90%", overflow: "scroll" }}>
@@ -61,27 +69,47 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               />
             </Grid>
           </Grid>
-          <Grid item md={8} sm={12}>
-            <div className={style.detail_wrapper}>
-              <Typography variant={"h6"}>{product.name}</Typography>
-              <Typography variant={"body1"}>
-                {product.price.toString()}円
-              </Typography>
-              <div style={{ height: "30px" }} />
+          <Grid item container spacing={4} direction={"column"} md={8} sm={12}>
+            <Grid container item alignItems={"flex-start"} direction={"column"}>
+              <Grid item>
+                <Typography variant={"h6"}>{product.name}</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant={"body1"}>
+                  {product.price.toString()}円
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
               <Typography variant={"body2"}>{product.description}</Typography>
-              <div className={style.button_group}>
-                <div className={style.quantity_price_wrapper}>
+            </Grid>
+            <Grid
+              item
+              container
+              justify={"space-between"}
+              alignItems={"center"}
+            >
+              <Grid item style={{ display: "flex", alignItems: "center" }}>
+                <Grid item>
                   <IconButton color={"primary"} onClick={handleRemoveQuantity}>
                     <RemoveOutlinedIcon />
                   </IconButton>
+                </Grid>
+                <Grid item>
                   <Typography variant={"body1"}>{quantity}</Typography>
+                </Grid>
+                <Grid item>
                   <IconButton color={"primary"} onClick={handleAddQuantity}>
                     <AddOutlinedIcon />
                   </IconButton>
+                </Grid>
+                <Grid item>
                   <Typography variant={"body1"}>
                     {(quantity * product.price).toString()}円
                   </Typography>
-                </div>
+                </Grid>
+              </Grid>
+              <Grid item>
                 <Button
                   color={"primary"}
                   variant={"contained"}
@@ -89,8 +117,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 >
                   カートに追加
                 </Button>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>
