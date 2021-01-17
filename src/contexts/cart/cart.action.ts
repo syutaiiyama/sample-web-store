@@ -1,7 +1,7 @@
 import { TCartItem, TPayment } from "./cart.type";
 
 export const UPDATE_CART_ITEMS = "UPDATE_CART_ITEMS";
-export const updateCart = (cartItem: Array<TCartItem>) => {
+export const updateCartItem = (cartItem: Array<TCartItem>) => {
   return {
     type: UPDATE_CART_ITEMS,
     payload: cartItem,

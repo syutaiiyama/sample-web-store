@@ -1,8 +1,8 @@
-import { TCart, TCartItem } from "./cart.type";
+import { TCart, TCartItem, TPayment } from "./cart.type";
 import { INITIAL_STATE, reducer } from "./cart.reducer";
 import { useReducer, useState } from "react";
 import { useLoadingModal } from "../loading/loading.context";
-import { updateCart } from "./cart.action";
+import { updateCartItem, updateCartPayment } from "./cart.action";
 import { apiClient } from "../../infrastructure/apiClient/apiClient";
 
 export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
@@ -36,7 +36,19 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
         updatedCartItems = cartItems;
       }
 
-      dispatch(updateCart(updatedCartItems));
+      dispatch(updateCartItem(updatedCartItems));
+
+      let subtotal = 0;
+      state.cartItems.forEach((item: TCartItem) => {
+        subtotal += item.quantity * item.product.price;
+      });
+      const updatedPayment: TPayment = {
+        total: subtotal * 1.1,
+        subtotal: subtotal,
+        tax: subtotal * 0.1,
+        shipping: 0,
+      };
+      dispatch(updateCartPayment(updatedPayment));
       const idToken = await apiClient.auth.getIdToken();
       // await apiClient.patch.cart(cartItem, idToken);
       console.log(state);
@@ -52,7 +64,7 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
     try {
       //TODO: ここが間違っているかも
       const updatedCartItems = state.cartItems;
-      dispatch(updateCart(updatedCartItems));
+      dispatch(updateCartItem(updatedCartItems));
       const idToken = await apiClient.auth.getIdToken();
       // await apiClient.patch.cart(cartItem, idToken);
       console.log(state);

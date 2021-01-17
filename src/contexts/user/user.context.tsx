@@ -3,6 +3,7 @@ import React, { createContext, useContext } from "react";
 import { userOperations } from "./user.operations";
 import { MuiModal } from "../../components/Modal/MuiModal";
 import { AuthModal } from "../../containers/Modal/AuthModal";
+import { AddressModal } from "../../containers/Modal/AddressModal";
 
 type ContextProps = {
   isAuthenticated: boolean;
@@ -10,6 +11,7 @@ type ContextProps = {
   address?: TAddress;
   card?: TCreditCard;
   isAuthModalOpen: boolean;
+  isAddressModalOpen: boolean;
   error: string;
   fetchUser: () => void;
   signUp: (
@@ -24,6 +26,8 @@ type ContextProps = {
   updateCard: (difference: TCreditCard) => void;
   openAuthModal: () => void;
   closeAuthModal: () => void;
+  openAddressModal: () => void;
+  closeAddressModal: () => void;
 };
 
 const UserContext = createContext({} as ContextProps);
@@ -39,6 +43,12 @@ export const UserProvider = ({ children }) => {
         onClose={() => operations.closeAuthModal()}
       >
         <AuthModal />
+      </MuiModal>
+      <MuiModal
+        isModalOpen={operations.isAddressModalOpen}
+        onClose={() => operations.closeAddressModal()}
+      >
+        <AddressModal />
       </MuiModal>
     </UserContext.Provider>
   );

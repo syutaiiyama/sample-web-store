@@ -14,9 +14,9 @@ export type TAddress = {
   postalCode: string;
   prefecture: string;
   city: string;
-  address: string;
+  addressLine: string;
   building: string;
-  tel: number;
+  tel: string;
 };
 
 export type TCreditCard = {

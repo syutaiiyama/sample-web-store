@@ -10,7 +10,7 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
 }
 
-.auth_wrapper{
+.auth_wrapper {
   background-color: #fff;
   padding: 40px;
   min-width: 400px;
@@ -23,11 +23,23 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
 }
 
-.cart_wrapper{
+.cart_wrapper {
   background-color: #fff;
   padding: 0 0 40px;
   min-width: 400px;
   max-width: 90%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+}
+
+.address_wrapper {
+  background-color: #fff;
+  max-width: 500px;
+  padding: 40px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -68,11 +80,11 @@
     align-items: flex-start;
   }
 
-  .auth_wrapper{
+  .auth_wrapper {
     min-width: 0;
   }
 
-  .cart_wrapper{
+  .cart_wrapper {
     min-width: 0;
   }
 }

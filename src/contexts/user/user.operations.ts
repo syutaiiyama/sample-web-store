@@ -16,6 +16,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState<string>();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
   const { openLoadingModal, closeLoadingModal } = useLoadingModal();
   const router = useRouter();
 
@@ -161,12 +162,21 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     setError("");
   };
 
+  const openAddressModal = () => {
+    setIsAddressModalOpen(true);
+  };
+
+  const closeAddressModal = () => {
+    setIsAddressModalOpen(false);
+  };
+
   return {
     isAuthenticated: state.isAuthenticated,
     profile: state.profile,
     address: state.address,
     card: state.card,
     isAuthModalOpen,
+    isAddressModalOpen,
     error,
     fetchUser,
     signUp,
@@ -177,5 +187,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     updateCard,
     openAuthModal,
     closeAuthModal,
+    openAddressModal,
+    closeAddressModal,
   };
 };

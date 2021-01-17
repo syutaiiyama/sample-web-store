@@ -1,5 +1,5 @@
 import { TCart } from "./cart.type";
-import { UPDATE_CART_ITEMS } from "./cart.action";
+import { UPDATE_CART_ITEMS, UPDATE_CART_PAYMENT } from "./cart.action";
 
 export const INITIAL_STATE: TCart = {
   payment: {
@@ -15,5 +15,7 @@ export const reducer = (state: TCart, action) => {
   switch (action.type) {
     case UPDATE_CART_ITEMS:
       return { ...state, cartItems: action.payload };
+    case UPDATE_CART_PAYMENT:
+      return { ...state, payment: action.payload };
   }
 };
