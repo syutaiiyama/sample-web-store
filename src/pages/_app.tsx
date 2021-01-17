@@ -1,12 +1,31 @@
-import App, { Container } from "next/app";
+import App from "next/app";
 import React from "react";
 import { AppLayout } from "../containers/LayoutContainer/AppLayout";
+import { ThemeProvider } from "@material-ui/styles";
+import { theme } from "../style/muiTheme";
+import { AppProvider } from "../contexts/app/app.context";
+import { LoadingProvider } from "../contexts/loading/loading.context";
+import * as Sentry from "@sentry/react";
+import { UserProvider } from "../contexts/user/user.context";
 
 export default function ExtendedApp({ Component, pageProps, query }) {
+  Sentry.init({
+    dsn:
+      "https://f8b1ea00b7f14d8aaffe22dc5d23efc0@o505953.ingest.sentry.io/5595165",
+  });
+
   return (
-    <AppLayout>
-      <Component {...pageProps} />
-    </AppLayout>
+    <LoadingProvider>
+      <UserProvider>
+        <AppProvider>
+          <ThemeProvider theme={theme}>
+            <AppLayout>
+              <Component {...pageProps} />
+            </AppLayout>
+          </ThemeProvider>
+        </AppProvider>
+      </UserProvider>
+    </LoadingProvider>
   );
 }
 
