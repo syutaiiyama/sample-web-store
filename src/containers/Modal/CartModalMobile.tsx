@@ -1,64 +1,41 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./ProductModal.module.css";
 import { useCart } from "../../contexts/cart/cart.context";
-import {
-  Button,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
-import Image from "next/image";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { useRouter } from "next/router";
+import { CartList } from "../Cart/CartList";
 
 export const CartModalMobile: React.FC = () => {
-  const { cartItems } = useCart();
+  const { cartItems, cartPayment, closeCartModal } = useCart();
+  const router = useRouter();
+
+  const handleCheckoutButton = useCallback(() => {
+    router.push("/checkout");
+    closeCartModal();
+  }, []);
 
   return (
     <div className={style.cart_wrapper}>
-      <List>
-        {cartItems.map((item) => (
-          <ListItem divider>
-            <div style={{ padding: "0 10px" }}>
-              <Image
-                src={item.product.imageSrc}
-                width={100}
-                height={150}
-                layout={"fixed"}
-              />
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant={"caption"}>{item.product.name}</Typography>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <Typography variant={"caption"}>
-                    数量：{item.quantity}
-                  </Typography>
-                  <div style={{ width: "20px" }} />
-                  <Typography variant={"caption"}>
-                    {item.quantity * item.product.price}円
-                  </Typography>
-                </div>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </div>
-            </div>
-          </ListItem>
-        ))}
-      </List>
+      <CartList cartItems={cartItems} />
+      <Grid
+        container
+        alignItems={"center"}
+        justify={"flex-end"}
+        style={{ padding: "10px" }}
+      >
+        <Grid item>
+          <Typography variant={"body2"}>
+            小計：{cartPayment.subtotal}円
+          </Typography>
+        </Grid>
+      </Grid>
       <Grid container justify={"center"} style={{ margin: "30px 0 0" }}>
         <Grid item>
-          <Button color={"primary"} variant={"contained"}>
+          <Button
+            color={"primary"}
+            variant={"contained"}
+            onClick={handleCheckoutButton}
+          >
             注文する
           </Button>
         </Grid>

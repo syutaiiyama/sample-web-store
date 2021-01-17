@@ -1,59 +1,34 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useCart } from "../../contexts/cart/cart.context";
 import style from "./ProductModal.module.css";
-import {
-  Button,
-  Grid,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
-import Image from "next/image";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { TCartItem } from "../../contexts/cart/cart.type";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { CartTable } from "../Cart/CartTable";
+import { useRouter } from "next/router";
 
 export const CartModalDesktop: React.FC = () => {
-  const { cartItems } = useCart();
+  const { closeCartModal, cartItems, cartPayment } = useCart();
+  const router = useRouter();
+
+  const handleCheckoutButton = useCallback(() => {
+    router.push("/checkout");
+    closeCartModal();
+  }, []);
 
   return (
     <div className={style.cart_wrapper}>
-      <TableContainer>
-        <Table>
-          <TableHead style={{ backgroundColor: "#FAFAFA" }}>
-            <TableRow>
-              <TableCell align={"center"} />
-              <TableCell align={"left"}>商品名</TableCell>
-              <TableCell align={"left"}>数量</TableCell>
-              <TableCell align={"left"}>価格</TableCell>
-              <TableCell align={"left"} />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cartItems?.map((item: TCartItem) => (
-              <TableRow>
-                <TableCell align={"center"}>
-                  <Image src={item.product.imageSrc} width={100} height={150} />
-                </TableCell>
-                <TableCell>{item.product.name}</TableCell>
-                <TableCell>{item.quantity}</TableCell>
-                <TableCell>{item.quantity * item.product.price}円</TableCell>
-                <TableCell>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <CartTable cartItems={cartItems} />
+      <Grid container alignItems={"center"} style={{ padding: "20px" }}>
+        <Grid item>
+          <Typography>小計：{cartPayment.subtotal}円</Typography>
+        </Grid>
+      </Grid>
       <Grid container justify={"center"} style={{ margin: "30px 0 0" }}>
         <Grid item>
-          <Button color={"primary"} variant={"contained"}>
+          <Button
+            color={"primary"}
+            variant={"contained"}
+            onClick={handleCheckoutButton}
+          >
             注文する
           </Button>
         </Grid>
