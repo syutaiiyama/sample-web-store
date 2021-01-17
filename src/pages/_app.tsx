@@ -7,6 +7,7 @@ import { AppProvider } from "../contexts/app/app.context";
 import { LoadingProvider } from "../contexts/loading/loading.context";
 import * as Sentry from "@sentry/react";
 import { UserProvider } from "../contexts/user/user.context";
+import { CartProvider } from "../contexts/cart/cart.context";
 
 export default function ExtendedApp({ Component, pageProps, query }) {
   Sentry.init({
@@ -17,13 +18,15 @@ export default function ExtendedApp({ Component, pageProps, query }) {
   return (
     <LoadingProvider>
       <UserProvider>
-        <AppProvider>
-          <ThemeProvider theme={theme}>
-            <AppLayout>
-              <Component {...pageProps} />
-            </AppLayout>
-          </ThemeProvider>
-        </AppProvider>
+        <CartProvider>
+          <AppProvider>
+            <ThemeProvider theme={theme}>
+              <AppLayout>
+                <Component {...pageProps} />
+              </AppLayout>
+            </ThemeProvider>
+          </AppProvider>
+        </CartProvider>
       </UserProvider>
     </LoadingProvider>
   );
