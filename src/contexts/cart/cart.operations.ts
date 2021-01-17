@@ -43,9 +43,9 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
         subtotal += item.quantity * item.product.price;
       });
       const updatedPayment: TPayment = {
-        total: subtotal * 1.1,
+        total: Math.round(subtotal * 1.1),
         subtotal: subtotal,
-        tax: subtotal * 0.1,
+        tax: Math.round(subtotal * 0.1),
         shipping: 0,
       };
       dispatch(updateCartPayment(updatedPayment));

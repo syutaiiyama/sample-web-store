@@ -8,6 +8,9 @@ import { LoadingProvider } from "../contexts/loading/loading.context";
 import * as Sentry from "@sentry/react";
 import { UserProvider } from "../contexts/user/user.context";
 import { CartProvider } from "../contexts/cart/cart.context";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import "../style/global.css";
 
 export default function ExtendedApp({ Component, pageProps, query }) {
   Sentry.init({
@@ -15,20 +18,24 @@ export default function ExtendedApp({ Component, pageProps, query }) {
       "https://f8b1ea00b7f14d8aaffe22dc5d23efc0@o505953.ingest.sentry.io/5595165",
   });
 
+  const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+
   return (
-    <AppProvider>
-      <LoadingProvider>
-        <UserProvider>
-          <CartProvider>
-            <ThemeProvider theme={theme}>
-              <AppLayout>
-                <Component {...pageProps} />
-              </AppLayout>
-            </ThemeProvider>
-          </CartProvider>
-        </UserProvider>
-      </LoadingProvider>
-    </AppProvider>
+    <Elements stripe={stripePromise}>
+      <AppProvider>
+        <LoadingProvider>
+          <UserProvider>
+            <CartProvider>
+              <ThemeProvider theme={theme}>
+                <AppLayout>
+                  <Component {...pageProps} />
+                </AppLayout>
+              </ThemeProvider>
+            </CartProvider>
+          </UserProvider>
+        </LoadingProvider>
+      </AppProvider>
+    </Elements>
   );
 }
 

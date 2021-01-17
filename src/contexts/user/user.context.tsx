@@ -4,6 +4,7 @@ import { userOperations } from "./user.operations";
 import { MuiModal } from "../../components/Modal/MuiModal";
 import { AuthModal } from "../../containers/Modal/AuthModal";
 import { AddressModal } from "../../containers/Modal/AddressModal";
+import { CardModal } from "../../containers/Modal/CardModal";
 
 type ContextProps = {
   isAuthenticated: boolean;
@@ -12,6 +13,7 @@ type ContextProps = {
   card?: TCreditCard;
   isAuthModalOpen: boolean;
   isAddressModalOpen: boolean;
+  isCardModalOpen: boolean;
   error: string;
   fetchUser: () => void;
   signUp: (
@@ -28,6 +30,8 @@ type ContextProps = {
   closeAuthModal: () => void;
   openAddressModal: () => void;
   closeAddressModal: () => void;
+  openCardModal: () => void;
+  closeCardModal: () => void;
 };
 
 const UserContext = createContext({} as ContextProps);
@@ -49,6 +53,12 @@ export const UserProvider = ({ children }) => {
         onClose={() => operations.closeAddressModal()}
       >
         <AddressModal />
+      </MuiModal>
+      <MuiModal
+        isModalOpen={operations.isCardModalOpen}
+        onClose={() => operations.closeCardModal()}
+      >
+        <CardModal />
       </MuiModal>
     </UserContext.Provider>
   );
