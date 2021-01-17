@@ -23,6 +23,19 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
 }
 
+.cart_wrapper{
+  background-color: #fff;
+  padding: 0 0 40px;
+  min-width: 400px;
+  max-width: 90%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+}
+
 .preview_wrapper {
   text-align: center;
 }
@@ -56,6 +69,10 @@
   }
 
   .auth_wrapper{
+    min-width: 0;
+  }
+
+  .cart_wrapper{
     min-width: 0;
   }
 }

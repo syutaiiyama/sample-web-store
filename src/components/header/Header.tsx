@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextField, IconButton, Drawer } from "@material-ui/core";
+import { TextField, IconButton, Drawer, Badge } from "@material-ui/core";
 import styles from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
@@ -12,9 +12,11 @@ import { DrawerMenu } from "../Drawer/DrawerMenu";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import { useUser } from "../../contexts/user/user.context";
+import { useCart } from "../../contexts/cart/cart.context";
 
 export const Header: React.FC = () => {
   const router = useRouter();
+  const { openCartModal, cartItems } = useCart();
   const { isAuthenticated, openAuthModal } = useUser();
   const [pageType, setPageType] = useState(Pages.Book);
   const { deviceType } = useApp();
@@ -53,8 +55,16 @@ export const Header: React.FC = () => {
         >
           <AccountCircleOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <ShoppingCartOutlinedIcon fontSize={"large"} />
+        <IconButton
+          onClick={() => {
+            if (cartItems.length > 0) {
+              openCartModal();
+            }
+          }}
+        >
+          <Badge badgeContent={cartItems.length} color={"primary"}>
+            <ShoppingCartOutlinedIcon fontSize={"large"} />
+          </Badge>
         </IconButton>
       </div>
     );
@@ -76,8 +86,16 @@ export const Header: React.FC = () => {
         >
           <SearchIcon />
         </IconButton>
-        <IconButton>
-          <ShoppingCartOutlinedIcon />
+        <IconButton
+          onClick={() => {
+            if (cartItems.length > 0) {
+              openCartModal();
+            }
+          }}
+        >
+          <Badge badgeContent={cartItems.length} color={"primary"}>
+            <ShoppingCartOutlinedIcon fontSize={"large"} />
+          </Badge>
         </IconButton>
         <Drawer
           anchor={"left"}

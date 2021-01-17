@@ -16,19 +16,19 @@ export default function ExtendedApp({ Component, pageProps, query }) {
   });
 
   return (
-    <LoadingProvider>
-      <UserProvider>
-        <CartProvider>
-          <AppProvider>
+    <AppProvider>
+      <LoadingProvider>
+        <UserProvider>
+          <CartProvider>
             <ThemeProvider theme={theme}>
               <AppLayout>
                 <Component {...pageProps} />
               </AppLayout>
             </ThemeProvider>
-          </AppProvider>
-        </CartProvider>
-      </UserProvider>
-    </LoadingProvider>
+          </CartProvider>
+        </UserProvider>
+      </LoadingProvider>
+    </AppProvider>
   );
 }
 

@@ -19,7 +19,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   closeModal,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { cartItems, addToCart } = useCart();
+  const { addToCart } = useCart();
 
   const handleAddQuantity = useCallback(() => setQuantity(quantity + 1), [
     quantity,
@@ -33,7 +33,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   }, [quantity]);
 
   const handleAddToCart = useCallback(async () => {
-    //TODO: カートの更新
     const addCartItem: TCartItem = {
       product: product,
       quantity: quantity,

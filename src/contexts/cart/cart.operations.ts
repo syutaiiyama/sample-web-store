@@ -63,10 +63,21 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
     }
   };
 
+  const openCartModal = () => {
+    setIsCartModalOpen(true);
+  };
+
+  const closeCartModal = () => {
+    setIsCartModalOpen(false);
+  };
+
   return {
     cartItems: state.cartItems,
     cartPayment: state.payment,
     addToCart,
     removeFromCart,
+    openCartModal,
+    closeCartModal,
+    isCartModalOpen,
   };
 };
