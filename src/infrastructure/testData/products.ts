@@ -1,4 +1,4 @@
-import { TProduct } from "../../contexts/products/products.type";
+import { TProduct } from "../../interfaces/products.type";
 
 const bookSample: TProduct = {
   imageSrc: "/images/book_product.jpg",

@@ -1,4 +1,4 @@
-import { TProduct } from "../../contexts/products/products.type";
+import { TProduct } from "../../interfaces/products.type";
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import style from "./ProductModal.module.css";

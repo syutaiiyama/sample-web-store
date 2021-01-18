@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Pages } from "../../interfaces/pages";
+import { PagesType } from "../../interfaces/pages.type";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import WorkSharpIcon from "@material-ui/icons/WorkSharp";
 import FastfoodOutlinedIcon from "@material-ui/icons/FastfoodOutlined";
@@ -16,9 +16,9 @@ export const HeaderIcon: React.FC<HeaderIconProps> = ({ pageType }) => {
     router.push(url);
   }, []);
 
-  if (pageType === Pages.Book)
+  if (pageType === PagesType.Book)
     return (
-      <IconButton onClick={() => handleClick(Pages.Book)}>
+      <IconButton onClick={() => handleClick(PagesType.Book)}>
         <MenuBookIcon
           fontSize={"large"}
           color={"primary"}
@@ -27,9 +27,9 @@ export const HeaderIcon: React.FC<HeaderIconProps> = ({ pageType }) => {
       </IconButton>
     );
 
-  if (pageType === Pages.Clothe)
+  if (pageType === PagesType.Clothe)
     return (
-      <IconButton onClick={() => handleClick(Pages.Clothe)}>
+      <IconButton onClick={() => handleClick(PagesType.Clothe)}>
         <WorkSharpIcon
           fontSize={"large"}
           color={"primary"}
@@ -38,14 +38,14 @@ export const HeaderIcon: React.FC<HeaderIconProps> = ({ pageType }) => {
       </IconButton>
     );
 
-  if (pageType === Pages.Food)
+  if (pageType === PagesType.Food)
     return (
-      <IconButton onClick={() => handleClick(Pages.Food)}>
+      <IconButton onClick={() => handleClick(PagesType.Food)}>
         <FastfoodOutlinedIcon
           fontSize={"large"}
           color={"primary"}
           style={{ margin: "0 10px" }}
-          onClick={() => handleClick(Pages.Food)}
+          onClick={() => handleClick(PagesType.Food)}
         />
       </IconButton>
     );

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ProductTitle } from "../../../components/Product/Title/ProductTitle";
 import { ProductCard } from "../../../components/Product/Card/ProductCard";
 import { Grid } from "@material-ui/core";
-import { TProduct } from "../../../contexts/products/products.type";
+import { TProduct } from "../../../interfaces/products.type";
 import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";
 import style from "../products.module.css";
@@ -19,8 +19,6 @@ const BookPage: React.FC = () => {
     name: "売れる商品はデザインで決まる",
     price: 1000,
     description:
-      "本書では、ビジネスでのサービスデザインの基本と実践方法をわかりやすく解説します。具体的な成功事例を交え、サービスデザインを使った問題の特定からその解決方法までを示していきます。" +
-      "消費者・企業・行政に向けたサービスに携わる人のための、顧客体験の作り方がわかる実践的ガイドブックです。" +
       "本書では、ビジネスでのサービスデザインの基本と実践方法をわかりやすく解説します。具体的な成功事例を交え、サービスデザインを使った問題の特定からその解決方法までを示していきます。" +
       "消費者・企業・行政に向けたサービスに携わる人のための、顧客体験の作り方がわかる実践的ガイドブックです。",
   };

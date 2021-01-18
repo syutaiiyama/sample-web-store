@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { TProduct } from "../../contexts/products/products.type";
+import { TProduct } from "../../interfaces/products.type";
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 // https://developers.google.com/gtagjs/reference/event?hl=ja#begin_checkout
@@ -95,8 +95,8 @@ export const search = (searchText: string) => {
   });
 };
 
-export const purchase = () => {};
+// export const purchase = () => {};
 
-export const beginCheckout = () => {};
+// export const beginCheckout = () => {};
 
 Router.events.on("routeChangeComplete", (url) => pageview(url));

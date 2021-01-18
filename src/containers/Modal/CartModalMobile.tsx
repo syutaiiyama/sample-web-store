@@ -3,7 +3,7 @@ import style from "./ProductModal.module.css";
 import { useCart } from "../../contexts/cart/cart.context";
 import { Button, Grid, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";
-import { CartList } from "../Cart/CartList";
+import { CartList } from "../../components/Cart/CartList";
 import { useUser } from "../../contexts/user/user.context";
 
 export const CartModalMobile: React.FC = () => {

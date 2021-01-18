@@ -1,4 +1,4 @@
-import { TProduct } from "../products/products.type";
+import { TProduct } from "../../interfaces/products.type";
 
 export type TCart = {
   payment: TPayment;

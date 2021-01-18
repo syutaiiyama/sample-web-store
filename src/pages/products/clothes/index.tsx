@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ProductTitle } from "../../../components/Product/Title/ProductTitle";
 import { ProductCard } from "../../../components/Product/Card/ProductCard";
 import { Grid } from "@material-ui/core";
-import { TProduct } from "../../../contexts/products/products.type";
+import { TProduct } from "../../../interfaces/products.type";
 import { useApp } from "../../../contexts/app/app.context";
 import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";

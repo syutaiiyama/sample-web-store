@@ -11,7 +11,7 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import { HeaderIcon } from "./HeaderIcon";
 import { useRouter } from "next/router";
-import { Pages } from "../../interfaces/pages";
+import { PagesType } from "../../interfaces/pages.type";
 import { CategorySelector } from "./CategorySelector";
 import { useApp } from "../../contexts/app/app.context";
 import { DrawerMenu } from "../Drawer/DrawerMenu";
@@ -24,17 +24,17 @@ export const Header: React.FC = () => {
   const router = useRouter();
   const { openCartModal, cartItems } = useCart();
   const { isAuthenticated, openAuthModal } = useUser();
-  const [pageType, setPageType] = useState(Pages.Book);
+  const [pageType, setPageType] = useState(PagesType.Book);
   const { deviceType } = useApp();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (router.pathname === Pages.Book) {
-      setPageType(Pages.Book);
-    } else if (router.pathname === Pages.Clothe) {
-      setPageType(Pages.Clothe);
-    } else if (router.pathname === Pages.Food) {
-      setPageType(Pages.Food);
+    if (router.pathname === PagesType.Book) {
+      setPageType(PagesType.Book);
+    } else if (router.pathname === PagesType.Clothe) {
+      setPageType(PagesType.Clothe);
+    } else if (router.pathname === PagesType.Food) {
+      setPageType(PagesType.Food);
     }
   }, [router.pathname]);
 

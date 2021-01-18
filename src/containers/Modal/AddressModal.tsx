@@ -33,7 +33,6 @@ export const AddressModal: React.FC = () => {
         <Grid
           container
           item
-          xs={6}
           alignItems={"center"}
           justify={"center"}
           spacing={2}

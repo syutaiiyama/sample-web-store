@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useCart } from "../../contexts/cart/cart.context";
 import style from "./ProductModal.module.css";
 import { Button, Grid, Typography } from "@material-ui/core";
-import { CartTable } from "../Cart/CartTable";
+import { CartTable } from "../../components/Cart/CartTable";
 import { useRouter } from "next/router";
 import { useUser } from "../../contexts/user/user.context";
 

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
-import { CartTable } from "../../containers/Cart/CartTable";
+import { CartTable } from "../../components/Cart/CartTable";
 import { useCart } from "../../contexts/cart/cart.context";
 import { useApp } from "../../contexts/app/app.context";
-import { CartList } from "../../containers/Cart/CartList";
+import { CartList } from "../../components/Cart/CartList";
 import { Button, Grid } from "@material-ui/core";
 import { useUser } from "../../contexts/user/user.context";
 import { PriceInfo } from "../../components/Checkout/PriceInfo";
@@ -15,7 +15,7 @@ import { TOrder } from "../../contexts/order/order.type";
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
-  const { cartItems, cartPayment } = useCart();
+  const { cartItems, cartPayment, removeFromCart } = useCart();
   const { handleCheckout } = useOrder();
   const { deviceType, containerSpacing } = useApp();
   const {
@@ -52,9 +52,9 @@ const CheckoutPage: React.FC = () => {
   return (
     <div style={{ width: "100%" }}>
       {deviceType === "mobile" ? (
-        <CartList cartItems={cartItems} />
+        <CartList cartItems={cartItems} removeFromCart={removeFromCart} />
       ) : (
-        <CartTable cartItems={cartItems} />
+        <CartTable cartItems={cartItems} removeFromCart={removeFromCart} />
       )}
       <Grid container spacing={containerSpacing}>
         <PriceInfo payment={cartPayment} />

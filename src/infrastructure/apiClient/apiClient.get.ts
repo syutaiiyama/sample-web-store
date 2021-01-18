@@ -2,7 +2,7 @@ import { TUser } from "../../contexts/user/user.type";
 import { testUser } from "../testData/user";
 import { TOrder } from "../../contexts/order/order.type";
 import { getTestOrders } from "../testData/orders";
-import { TProduct } from "../../contexts/products/products.type";
+import { TProduct } from "../../interfaces/products.type";
 import { testBooks, testClothes, testFoods } from "../testData/products";
 
 export const apiClientGet = {
