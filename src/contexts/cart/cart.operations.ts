@@ -3,7 +3,6 @@ import { INITIAL_STATE, reducer } from "./cart.reducer";
 import { useReducer, useState } from "react";
 import { useLoadingModal } from "../loading/loading.context";
 import { updateCartItem, updateCartPayment } from "./cart.action";
-import { apiClient } from "../../infrastructure/apiClient/apiClient";
 
 export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
   const { openLoadingModal, closeLoadingModal } = useLoadingModal();
@@ -49,9 +48,8 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
         shipping: 0,
       };
       dispatch(updateCartPayment(updatedPayment));
-      const idToken = await apiClient.auth.getIdToken();
+      // const idToken = await apiClient.auth.getIdToken();
       // await apiClient.patch.cart(cartItem, idToken);
-      console.log(state);
     } catch (e) {
       console.log(e);
     } finally {
@@ -63,11 +61,26 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
     openLoadingModal("カートを更新しています");
     try {
       //TODO: ここが間違っているかも
-      const updatedCartItems = state.cartItems;
+      const updatedCartItems = state.cartItems.filter(
+        (item: TCartItem) => item !== cartItem
+      );
       dispatch(updateCartItem(updatedCartItems));
-      const idToken = await apiClient.auth.getIdToken();
+
+      let subtotal = 0;
+      if (updatedCartItems.length > 0) {
+        updatedCartItems.forEach((item: TCartItem) => {
+          subtotal += item.quantity * item.product.price;
+        });
+      }
+      const updatedPayment: TPayment = {
+        total: Math.round(subtotal * 1.1),
+        subtotal: subtotal,
+        tax: Math.round(subtotal * 0.1),
+        shipping: 0,
+      };
+      dispatch(updateCartPayment(updatedPayment));
+      // const idToken = await apiClient.auth.getIdToken();
       // await apiClient.patch.cart(cartItem, idToken);
-      console.log(state);
     } catch (e) {
       console.log(e);
     } finally {

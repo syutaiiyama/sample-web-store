@@ -29,10 +29,11 @@ export const AddressModal: React.FC = () => {
 
   return (
     <div className={style.address_wrapper}>
-      <Grid container justify={"center"} spacing={2}>
+      <Grid container justify={"center"} spacing={2} direction={"column"}>
         <Grid
           container
           item
+          xs={6}
           alignItems={"center"}
           justify={"center"}
           spacing={2}

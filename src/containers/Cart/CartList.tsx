@@ -6,13 +6,17 @@ import React from "react";
 
 type CartListProps = {
   cartItems: Array<TCartItem>;
+  removeFromCart: (cartItem: TCartItem) => void;
 };
 
-export const CartList: React.FC<CartListProps> = ({ cartItems }) => {
+export const CartList: React.FC<CartListProps> = ({
+  cartItems,
+  removeFromCart,
+}) => {
   return (
     <List style={{ width: "100%" }}>
-      {cartItems.map((item) => (
-        <ListItem divider>
+      {cartItems.map((item, index) => (
+        <ListItem divider key={index}>
           <div style={{ padding: "0 10px" }}>
             <Image
               src={item.product.imageSrc}
@@ -40,7 +44,7 @@ export const CartList: React.FC<CartListProps> = ({ cartItems }) => {
                   {item.quantity * item.product.price}円
                 </Typography>
               </div>
-              <IconButton>
+              <IconButton onClick={() => removeFromCart(item)}>
                 <DeleteIcon />
               </IconButton>
             </div>

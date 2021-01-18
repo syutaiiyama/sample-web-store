@@ -14,9 +14,13 @@ import React from "react";
 
 type CartTableProps = {
   cartItems: Array<TCartItem>;
+  removeFromCart: (cartItem: TCartItem) => void;
 };
 
-export const CartTable: React.FC<CartTableProps> = ({ cartItems }) => {
+export const CartTable: React.FC<CartTableProps> = ({
+  cartItems,
+  removeFromCart,
+}) => {
   return (
     <TableContainer>
       <Table>
@@ -30,8 +34,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cartItems }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cartItems?.map((item: TCartItem) => (
-            <TableRow>
+          {cartItems?.map((item: TCartItem, index) => (
+            <TableRow key={index}>
               <TableCell align={"center"}>
                 <Image src={item.product.imageSrc} width={100} height={150} />
               </TableCell>
@@ -39,7 +43,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cartItems }) => {
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.quantity * item.product.price}円</TableCell>
               <TableCell>
-                <IconButton>
+                <IconButton onClick={() => removeFromCart(item)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>

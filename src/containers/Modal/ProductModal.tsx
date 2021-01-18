@@ -54,6 +54,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           </Grid>
           <Grid
             container
+            item
             md={4}
             sm={12}
             justify={"center"}

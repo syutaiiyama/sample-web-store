@@ -4,19 +4,26 @@ import style from "./ProductModal.module.css";
 import { Button, Grid, Typography } from "@material-ui/core";
 import { CartTable } from "../Cart/CartTable";
 import { useRouter } from "next/router";
+import { useUser } from "../../contexts/user/user.context";
 
 export const CartModalDesktop: React.FC = () => {
-  const { closeCartModal, cartItems, cartPayment } = useCart();
+  const { closeCartModal, cartItems, cartPayment, removeFromCart } = useCart();
+  const { isAuthenticated, openAuthModal } = useUser();
   const router = useRouter();
 
   const handleCheckoutButton = useCallback(() => {
+    if (!isAuthenticated) {
+      closeCartModal();
+      openAuthModal();
+      return;
+    }
     router.push("/checkout");
     closeCartModal();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <div className={style.cart_wrapper}>
-      <CartTable cartItems={cartItems} />
+      <CartTable cartItems={cartItems} removeFromCart={removeFromCart} />
       <Grid container alignItems={"center"} style={{ padding: "20px" }}>
         <Grid item>
           <Typography>小計：{cartPayment.subtotal}円</Typography>

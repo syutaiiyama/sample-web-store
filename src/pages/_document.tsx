@@ -27,11 +27,11 @@ export default class MyDocument extends Document {
           `,
             }}
           />
+          <script async src="https://js.stripe.com/v3/" />
         </Head>
         <body>
           <Main />
           <NextScript />
-          <script async src="https://js.stripe.com/v3/" />
         </body>
       </Html>
     );

@@ -4,19 +4,26 @@ import { useCart } from "../../contexts/cart/cart.context";
 import { Button, Grid, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { CartList } from "../Cart/CartList";
+import { useUser } from "../../contexts/user/user.context";
 
 export const CartModalMobile: React.FC = () => {
-  const { cartItems, cartPayment, closeCartModal } = useCart();
+  const { cartItems, cartPayment, closeCartModal, removeFromCart } = useCart();
+  const { isAuthenticated, openAuthModal } = useUser();
   const router = useRouter();
 
   const handleCheckoutButton = useCallback(() => {
+    if (!isAuthenticated) {
+      closeCartModal();
+      openAuthModal();
+      return;
+    }
     router.push("/checkout");
     closeCartModal();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <div className={style.cart_wrapper}>
-      <CartList cartItems={cartItems} />
+      <CartList cartItems={cartItems} removeFromCart={removeFromCart} />
       <Grid
         container
         alignItems={"center"}

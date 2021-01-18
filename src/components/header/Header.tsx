@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TextField, IconButton, Drawer, Badge } from "@material-ui/core";
+import {
+  TextField,
+  IconButton,
+  Drawer,
+  Badge,
+  Button,
+} from "@material-ui/core";
 import styles from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,24 +43,43 @@ export const Header: React.FC = () => {
       <div className={styles.wrapper}>
         <HeaderIcon pageType={pageType} />
         <CategorySelector pageType={pageType} />
-        <TextField
-          style={{ flexGrow: 1 }}
-          variant={"outlined"}
-          size={"small"}
-          label={"検索"}
-        />
-        <IconButton color={"primary"}>
-          <SearchIcon />
-        </IconButton>
-        <IconButton
-          onClick={() => {
-            if (!isAuthenticated) {
-              openAuthModal();
-            }
-          }}
-        >
-          <AccountCircleOutlinedIcon />
-        </IconButton>
+        {router.pathname === "/checkout" ? (
+          <div style={{ flexGrow: 1 }} />
+        ) : (
+          <>
+            <TextField
+              style={{ flexGrow: 1 }}
+              variant={"outlined"}
+              size={"small"}
+              label={"検索"}
+            />
+            <IconButton color={"primary"}>
+              <SearchIcon />
+            </IconButton>
+          </>
+        )}
+        {isAuthenticated ? (
+          <IconButton
+            onClick={() => {
+              if (!isAuthenticated) {
+                openAuthModal();
+              }
+            }}
+          >
+            <AccountCircleOutlinedIcon />
+          </IconButton>
+        ) : (
+          <Button
+            variant={"outlined"}
+            onClick={() => {
+              if (!isAuthenticated) {
+                openAuthModal();
+              }
+            }}
+          >
+            ログイン
+          </Button>
+        )}
         <IconButton
           onClick={() => {
             if (cartItems.length > 0) {
@@ -74,18 +99,21 @@ export const Header: React.FC = () => {
         <IconButton color={"primary"} onClick={() => setIsModalOpen(true)}>
           <MenuOutlinedIcon />
         </IconButton>
-        <TextField
-          style={{ flexGrow: 1 }}
-          variant={"outlined"}
-          size={"small"}
-          label={"検索"}
-        />
-        <IconButton
-          color={"primary"}
-          style={{ padding: "0", margin: "0 0 0 10px" }}
-        >
-          <SearchIcon />
-        </IconButton>
+        {router.pathname === "/checkout" ? (
+          <div style={{ flexGrow: 1 }} />
+        ) : (
+          <>
+            <TextField
+              style={{ flexGrow: 1 }}
+              variant={"outlined"}
+              size={"small"}
+              label={"検索"}
+            />
+            <IconButton color={"primary"}>
+              <SearchIcon />
+            </IconButton>
+          </>
+        )}
         <IconButton
           onClick={() => {
             if (cartItems.length > 0) {

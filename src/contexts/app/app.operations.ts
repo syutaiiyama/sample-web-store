@@ -25,7 +25,7 @@ export const appOperations = () => {
 
   useEffect(() => {
     if (deviceType === "desktop") {
-      setContainerSpacing(6);
+      setContainerSpacing(4);
     } else if (deviceType === "tablet") {
       setContainerSpacing(3);
     } else {
