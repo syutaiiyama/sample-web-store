@@ -15,7 +15,7 @@ const ClothePage: React.FC = () => {
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
   const clothesSample: TProduct = {
-    imageSrc: "/images/clothe_product.jpg",
+    imageSrc: "/images/clothe_product2.png",
     name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
     price: 699,
     description:

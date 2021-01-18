@@ -15,7 +15,7 @@ const BookPage: React.FC = () => {
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
   const bookSample: TProduct = {
-    imageSrc: "/images/book_product.jpg",
+    imageSrc: "/images/book_product2.png",
     name: "売れる商品はデザインで決まる",
     price: 1000,
     description:

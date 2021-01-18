@@ -18,11 +18,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>
       <Paper elevation={1} style={{ padding: "20px" }} onClick={handleClick}>
-        <div style={{ textAlign: "center", marginBottom: "10px" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "10px",
+          }}
+        >
           <Image
             src={product.imageSrc}
-            width={260}
-            height={333}
+            width={400}
+            height={400}
             layout={"intrinsic"}
           />
         </div>

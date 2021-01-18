@@ -21,7 +21,7 @@ export const CartList: React.FC<CartListProps> = ({
             <Image
               src={item.product.imageSrc}
               width={100}
-              height={150}
+              height={100}
               layout={"fixed"}
             />
           </div>
