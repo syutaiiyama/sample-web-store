@@ -13,7 +13,7 @@ export const appOperations = () => {
       const deviceType =
         window.innerWidth < 464
           ? "mobile"
-          : window.innerWidth < 1024
+          : window.innerWidth < 960
           ? "tablet"
           : "desktop";
       setDeviceType(deviceType);
