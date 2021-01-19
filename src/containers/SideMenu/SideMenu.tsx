@@ -22,8 +22,8 @@ export const SideMenu: React.FC = () => {
     <Grid item xs={3} className={style.side_menu_wrapper}>
       <Paper>
         <List style={{ padding: "30px" }}>
-          <ListItem button>
-            <ListItemIcon onClick={() => router.push("/my-page/order-list")}>
+          <ListItem button onClick={() => router.push("/my-page/order-list")}>
+            <ListItemIcon>
               <ListAltIcon />
             </ListItemIcon>
             <ListItemText>注文履歴</ListItemText>

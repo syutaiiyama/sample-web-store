@@ -24,7 +24,6 @@ export const AddressModal: React.FC = () => {
     };
     await updateAddress(updatedAddress);
     closeAddressModal();
-    console.log(address);
   };
 
   return (

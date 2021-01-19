@@ -4,7 +4,7 @@ import { CardElement } from "@stripe/react-stripe-js";
 import { Button, Grid } from "@material-ui/core";
 import { useUser } from "../../contexts/user/user.context";
 
-const cardStyle = {
+export const cardStyle = {
   style: {
     base: {
       color: "#32325d",
