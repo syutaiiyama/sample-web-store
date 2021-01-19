@@ -3,6 +3,6 @@ import { TUser } from "../user/user.type";
 
 export type TOrder = {
   user: TUser;
-  createdAt: string;
+  date: string;
   cart: TCart;
 };

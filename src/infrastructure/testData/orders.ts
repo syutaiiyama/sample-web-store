@@ -38,7 +38,7 @@ export const getTestOrders = () => {
           shipping: 0,
         },
       },
-      createdAt: "20210118",
+      date: "20210118",
     },
     {
       user: testUser,
@@ -75,7 +75,7 @@ export const getTestOrders = () => {
           shipping: 0,
         },
       },
-      createdAt: "20210118",
+      date: "20210118",
     },
   ];
 

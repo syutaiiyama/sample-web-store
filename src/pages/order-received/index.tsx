@@ -2,10 +2,17 @@ import React from "react";
 import { useOrder } from "../../contexts/order/order.context";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import * as uuid from "uuid";
+import { TCartItem } from "../../contexts/cart/cart.type";
+import { useRouter } from "next/router";
 
 const OrderReceivedPage: React.FC = () => {
+  const router = useRouter();
   const { orderList } = useOrder();
   const currentOrder = orderList[orderList.length - 1];
+  let cartItemQuantity = 0;
+  currentOrder.cart.cartItems.forEach((item: TCartItem) => {
+    cartItemQuantity += item.quantity;
+  });
 
   return (
     <div style={{ width: "100%" }}>
@@ -14,7 +21,9 @@ const OrderReceivedPage: React.FC = () => {
       >
         <Grid container direction={"column"} spacing={8}>
           <Grid container justify={"flex-end"}>
-            <Button variant={"outlined"}>戻る</Button>
+            <Button variant={"outlined"} onClick={() => router.push("/")}>
+              トップへ戻る
+            </Button>
           </Grid>
           <Grid container item>
             <Typography variant={"h6"}>
@@ -28,11 +37,11 @@ const OrderReceivedPage: React.FC = () => {
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>日付</Typography>
-              <Typography>2021年1月19日</Typography>
+              <Typography>{currentOrder.date}</Typography>
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>お支払額</Typography>
-              <Typography>1000円</Typography>
+              <Typography>{currentOrder.cart.payment.total}円</Typography>
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>お支払方法</Typography>
@@ -45,16 +54,28 @@ const OrderReceivedPage: React.FC = () => {
             </Grid>
             <Grid container item direction={"column"} spacing={2}>
               <Grid container item>
-                <Typography>商品数：</Typography>
-                <Typography>2</Typography>
+                <Typography>商品数{"　"}：</Typography>
+                <Typography>{cartItemQuantity}</Typography>
               </Grid>
               <Grid container item>
                 <Typography>注文日時：</Typography>
-                <Typography>2021年1月18日</Typography>
+                <Typography>{currentOrder.date}</Typography>
               </Grid>
               <Grid container item>
                 <Typography>お届け先：</Typography>
-                <Typography>住所</Typography>
+                <div>
+                  <Typography>
+                    〒{currentOrder.user.address.postalCode}
+                  </Typography>
+                  <Typography>
+                    {currentOrder.user.address.prefecture}
+                  </Typography>
+                  <Typography>{currentOrder.user.address.city}</Typography>
+                  <Typography>
+                    {currentOrder.user.address.addressLine}
+                  </Typography>
+                  <Typography>{currentOrder.user.address.building}</Typography>
+                </div>
               </Grid>
             </Grid>
           </Grid>
@@ -68,20 +89,20 @@ const OrderReceivedPage: React.FC = () => {
                 <Typography>クレジットカード</Typography>
               </Grid>
               <Grid container item>
-                <Typography>小計：</Typography>
-                <Typography>1000円</Typography>
+                <Typography>小計{"　"}：</Typography>
+                <Typography>{currentOrder.cart.payment.subtotal}円</Typography>
               </Grid>
               <Grid container item>
                 <Typography>消費税：</Typography>
-                <Typography>100円</Typography>
+                <Typography>{currentOrder.cart.payment.tax}円</Typography>
               </Grid>
               <Grid container item>
                 <Typography>配送料：</Typography>
-                <Typography>0円</Typography>
+                <Typography>{currentOrder.cart.payment.shipping}円</Typography>
               </Grid>
               <Grid container item>
-                <Typography>合計：</Typography>
-                <Typography>1100円</Typography>
+                <Typography>合計{"　"}：</Typography>
+                <Typography>{currentOrder.cart.payment.total}円</Typography>
               </Grid>
             </Grid>
           </Grid>
