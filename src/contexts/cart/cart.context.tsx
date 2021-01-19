@@ -11,6 +11,7 @@ type ContextProps = {
   cartPayment: TPayment;
   addToCart: (cartItem: TCartItem) => void;
   removeFromCart: (cartItem: TCartItem) => void;
+  clearCart: () => void;
   openCartModal: () => void;
   closeCartModal: () => void;
   isCartModalOpen: boolean;

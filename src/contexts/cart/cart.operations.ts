@@ -88,6 +88,28 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
     }
   };
 
+  const clearCart = async () => {
+    openLoadingModal("カートを更新しています...");
+    try {
+      const updatedCartItems: Array<TCartItem> = [];
+      const updatedPayment: TPayment = {
+        total: 0,
+        subtotal: 0,
+        tax: 0,
+        shipping: 0,
+      };
+      console.log(updatedCartItems);
+      dispatch(updateCartItem(updatedCartItems));
+      dispatch(updateCartPayment(updatedPayment));
+      // const idToken = await apiClient.auth.getIdToken();
+      // await apiClient.patch.cart(cartItem, idToken);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      closeLoadingModal();
+    }
+  };
+
   const openCartModal = () => {
     setIsCartModalOpen(true);
   };
@@ -101,6 +123,7 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
     cartPayment: state.payment,
     addToCart,
     removeFromCart,
+    clearCart,
     openCartModal,
     closeCartModal,
     isCartModalOpen,

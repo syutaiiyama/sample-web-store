@@ -19,6 +19,7 @@ import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import { useUser } from "../../contexts/user/user.context";
 import { useCart } from "../../contexts/cart/cart.context";
+import { TCartItem } from "../../contexts/cart/cart.type";
 
 export const Header: React.FC = () => {
   const router = useRouter();
@@ -37,6 +38,11 @@ export const Header: React.FC = () => {
       setPageType(PagesType.Food);
     }
   }, [router.pathname]);
+
+  let cartItemQuantity = 0;
+  cartItems.forEach((item: TCartItem) => {
+    cartItemQuantity += item.quantity;
+  });
 
   if (deviceType === "desktop")
     return (
@@ -87,7 +93,7 @@ export const Header: React.FC = () => {
             }
           }}
         >
-          <Badge badgeContent={cartItems.length} color={"primary"}>
+          <Badge badgeContent={cartItemQuantity} color={"primary"}>
             <ShoppingCartOutlinedIcon fontSize={"large"} />
           </Badge>
         </IconButton>
@@ -121,7 +127,7 @@ export const Header: React.FC = () => {
             }
           }}
         >
-          <Badge badgeContent={cartItems.length} color={"primary"}>
+          <Badge badgeContent={cartItemQuantity} color={"primary"}>
             <ShoppingCartOutlinedIcon fontSize={"large"} />
           </Badge>
         </IconButton>

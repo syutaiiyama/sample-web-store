@@ -12,10 +12,11 @@ import { RemarkField } from "../../components/Checkout/RemarkField";
 import { useRouter } from "next/router";
 import { useOrder } from "../../contexts/order/order.context";
 import { TOrder } from "../../contexts/order/order.type";
+import { convertDate } from "../../utils/converDate";
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
-  const { cartItems, cartPayment, removeFromCart } = useCart();
+  const { cartItems, cartPayment, removeFromCart, clearCart } = useCart();
   const { handleCheckout } = useOrder();
   const { deviceType, containerSpacing } = useApp();
   const {
@@ -32,6 +33,8 @@ const CheckoutPage: React.FC = () => {
   }, []);
 
   const handleCheckoutButtonClick = useCallback(() => {
+    const today = new Date();
+    const reshapedDate = convertDate(today);
     const order: TOrder = {
       user: {
         isAuthenticated: isAuthenticated,
@@ -43,9 +46,10 @@ const CheckoutPage: React.FC = () => {
         cartItems: cartItems,
         payment: cartPayment,
       },
-      createdAt: "20210118",
+      date: reshapedDate,
     };
     handleCheckout(order);
+    clearCart();
     router.push("/order-received");
   }, []);
 
