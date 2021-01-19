@@ -1,15 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  createStyles,
+  Grid,
+  makeStyles,
+  Paper,
+  TextField,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { SideMenu } from "../../../containers/SideMenu/SideMenu";
 import { InputForm } from "../../../components/Input/InputForm";
-import { CardElement } from "@stripe/react-stripe-js";
-import { cardStyle } from "../../../containers/Modal/CardModal";
 import { useUser } from "../../../contexts/user/user.context";
 import { TAddress } from "../../../contexts/user/user.type";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import { useRouter } from "next/router";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    wrapper: {
+      padding: "40px 0 0",
+      margin: "0 auto",
+      maxWidth: "100%",
+    },
+    paperWrapper: {
+      width: "800px",
+      maxWidth: "100%",
+      padding: "20px",
+      boxSizing: "border-box",
+    },
+  })
+);
+
 const SettingPage: React.FC = () => {
+  const styles = useStyles();
+
   const {
     profile,
     address,
@@ -45,18 +70,11 @@ const SettingPage: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ padding: "40px 0 0", margin: "0 auto", maxWidth: "100%" }}>
+    <div className={styles.wrapper}>
       <Grid container justify={"center"} spacing={2}>
         <SideMenu />
         <Grid item md={8} sm={12} xs={12}>
-          <Paper
-            style={{
-              width: "800px",
-              maxWidth: "100%",
-              padding: "20px",
-              boxSizing: "border-box",
-            }}
-          >
+          <Paper className={styles.paperWrapper}>
             <Grid container direction={"column"} spacing={6}>
               <Grid container item spacing={3}>
                 <Grid container item>

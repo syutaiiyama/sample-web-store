@@ -1,6 +1,6 @@
 import React from "react";
 import { SideMenu } from "../../../containers/SideMenu/SideMenu";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { OrderList } from "../../../components/OrderList/OrderList";
 import { useOrder } from "../../../contexts/order/order.context";
 

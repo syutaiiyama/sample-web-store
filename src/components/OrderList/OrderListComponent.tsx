@@ -1,15 +1,43 @@
 import React, { useState } from "react";
 import { TOrder } from "../../contexts/order/order.type";
-import { Collapse, Grid, Paper, Typography } from "@material-ui/core";
+import {
+  Collapse,
+  createStyles,
+  Grid,
+  makeStyles,
+  Paper,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { OrderListTable } from "./OrderListTable";
 
 type OrderListComponentProps = {
   order: TOrder;
 };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    activeWrapper: {
+      margin: "10px 0",
+      padding: "10px 0 0",
+      border: "1px solid #2196f3",
+      borderRadius: "4px",
+      maxWidth: "100%",
+    },
+    inactiveWrapper: {
+      margin: "10px 0",
+      padding: "10px 0 0",
+      border: "1px solid rgba(0, 0, 0, 0.23)",
+      borderRadius: "4px",
+      maxWidth: "100%",
+    },
+  })
+);
+
 export const OrderListComponent: React.FC<OrderListComponentProps> = ({
   order,
 }) => {
+  const styles = useStyles();
   const [isOpenDetail, setIsOpenDetail] = useState<boolean>(false);
 
   return (
@@ -24,13 +52,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
           setIsOpenDetail(true);
         }
       }}
-      style={{
-        margin: "10px 0",
-        padding: "10px 0 0",
-        border: "1px solid rgba(0, 0, 0, 0.23)",
-        borderRadius: "4px",
-        maxWidth: "100%",
-      }}
+      className={isOpenDetail ? styles.activeWrapper : styles.inactiveWrapper}
     >
       <Grid container item>
         <Typography variant={"body1"}>注文番号: 4382143214</Typography>
