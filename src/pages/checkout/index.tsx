@@ -51,7 +51,7 @@ const CheckoutPage: React.FC = () => {
     handleCheckout(order);
     clearCart();
     router.push("/order-received");
-  }, []);
+  }, [cartItems, cartPayment, isAuthenticated, profile, address, card]);
 
   return (
     <div style={{ width: "100%" }}>

@@ -53,7 +53,8 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ closeDrawer }) => {
             closeDrawer();
             openAuthModal();
           } else {
-            //router.push("/mypage");
+            router.push("/my-page/order-list");
+            closeDrawer();
           }
         }}
       >

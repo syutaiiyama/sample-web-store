@@ -69,6 +69,8 @@ export const Header: React.FC = () => {
             onClick={() => {
               if (!isAuthenticated) {
                 openAuthModal();
+              } else {
+                router.push("/my-page/order-list");
               }
             }}
           >
