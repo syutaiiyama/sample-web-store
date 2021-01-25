@@ -21,8 +21,8 @@ export const OrderList: React.FC<OrderListProps> = ({ orderList }) => {
         <Grid container>
           <Typography variant={"h6"}>注文履歴</Typography>
         </Grid>
-        {orderList.map((order) => (
-          <OrderListComponent order={order} />
+        {orderList.map((order, index) => (
+          <OrderListComponent order={order} key={index} />
         ))}
       </Grid>
     </Paper>

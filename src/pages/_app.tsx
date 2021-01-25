@@ -1,5 +1,5 @@
 import App from "next/app";
-import React from "react";
+import React, { useEffect } from "react";
 import { AppLayout } from "../containers/LayoutContainer/AppLayout";
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "../style/muiTheme";
@@ -13,6 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import "../style/global.css";
 import { OrderProvider } from "../contexts/order/order.context";
 import { ProductProvider } from "../contexts/products/products.context";
+import { CssBaseline } from "@material-ui/core";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
@@ -21,6 +22,13 @@ export default function ExtendedApp({ Component, pageProps, query }) {
     dsn:
       "https://f8b1ea00b7f14d8aaffe22dc5d23efc0@o505953.ingest.sentry.io/5595165",
   });
+
+  useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
 
   return (
     <Elements stripe={stripePromise}>
@@ -31,6 +39,7 @@ export default function ExtendedApp({ Component, pageProps, query }) {
               <ProductProvider>
                 <OrderProvider>
                   <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <AppLayout>
                       <Component {...pageProps} />
                     </AppLayout>
