@@ -12,6 +12,7 @@ import { useLoadingModal } from "../loading/loading.context";
 import * as GoogleAnalytics from "../../infrastructure/google_analytics/google-analytics";
 import { useRouter } from "next/router";
 
+// NOTE: デモプロジェクトのため、実際にfirebaseへの問合せは行わない
 export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState<string>();
@@ -21,6 +22,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const { openLoadingModal, closeLoadingModal } = useLoadingModal();
   const router = useRouter();
 
+  // firebaseへログイン状態の問合せ
   useEffect(() => {
     // apiClient.auth.onAuthStateChanged(async (isLoggedIn) => {
     //   if (!state.isAuthenticated && isLoggedIn) await fetchUser();
@@ -28,6 +30,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     // });
   }, []);
 
+  // NOTE: 必ずtestUserが代入されるようになっている
   const fetchUser = async () => {
     try {
       const idToken = await apiClient.auth.getIdToken();
@@ -58,8 +61,6 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       if (password !== confirmPassword) {
         throw SyntaxError("パスワードが一致していません");
       }
-      console.log(profile);
-      console.log("firebaseに送る");
       // const idToken = await apiClient.auth.createUserWithEmailAndPassword(
       //   profile.email,
       //   password
