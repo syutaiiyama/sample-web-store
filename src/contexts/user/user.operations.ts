@@ -58,6 +58,8 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       if (password !== confirmPassword) {
         throw SyntaxError("パスワードが一致していません");
       }
+      console.log(profile);
+      console.log("firebaseに送る");
       // const idToken = await apiClient.auth.createUserWithEmailAndPassword(
       //   profile.email,
       //   password
