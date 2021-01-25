@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { TProduct } from "../../../interfaces/products.type";
+import { TProduct } from "../../../contexts/products/products.type";
 import { useApp } from "../../../contexts/app/app.context";
 
 type ProductCardProps = {

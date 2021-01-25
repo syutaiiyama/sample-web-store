@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { TProduct } from "../../interfaces/products.type";
+import { TProduct } from "../../contexts/products/products.type";
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 // https://developers.google.com/gtagjs/reference/event?hl=ja#begin_checkout

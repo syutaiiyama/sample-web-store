@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import "../style/global.css";
 import { OrderProvider } from "../contexts/order/order.context";
+import { ProductProvider } from "../contexts/products/products.context";
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
@@ -27,13 +28,15 @@ export default function ExtendedApp({ Component, pageProps, query }) {
         <LoadingProvider>
           <UserProvider>
             <CartProvider>
-              <OrderProvider>
-                <ThemeProvider theme={theme}>
-                  <AppLayout>
-                    <Component {...pageProps} />
-                  </AppLayout>
-                </ThemeProvider>
-              </OrderProvider>
+              <ProductProvider>
+                <OrderProvider>
+                  <ThemeProvider theme={theme}>
+                    <AppLayout>
+                      <Component {...pageProps} />
+                    </AppLayout>
+                  </ThemeProvider>
+                </OrderProvider>
+              </ProductProvider>
             </CartProvider>
           </UserProvider>
         </LoadingProvider>

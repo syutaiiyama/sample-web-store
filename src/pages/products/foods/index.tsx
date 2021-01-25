@@ -1,42 +1,28 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { ProductTitle } from "../../../components/Product/Title/ProductTitle";
 import { ProductCard } from "../../../components/Product/Card/ProductCard";
 import { Grid } from "@material-ui/core";
-import { TProduct } from "../../../interfaces/products.type";
+import { TProduct } from "../../../contexts/products/products.type";
 import { useApp } from "../../../contexts/app/app.context";
 import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";
 import style from "../products.module.css";
+import { useProducts } from "../../../contexts/products/products.context";
 
 const FoodPage: React.FC = () => {
   const { containerSpacing } = useApp();
+  const { foods, fetchProducts } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
-
-  const foodSample: TProduct = {
-    imageUrl: "/images/food_product2.png",
-    name: "国華園 食品 １５品目の国産野菜セット 15種1箱 常温 野菜",
-    price: 2680,
-    description:
-      "たくさんの野菜が自宅に届く！\n" +
-      "野菜をたくさん買うのは重くて大変ですが、ネットなら自宅に届くので便利！使い勝手の良い野菜が10品目必ず入るため当たり外れがなく安心♪",
-  };
-
-  const foods = [
-    foodSample,
-    foodSample,
-    foodSample,
-    foodSample,
-    foodSample,
-    foodSample,
-    foodSample,
-    foodSample,
-  ];
 
   const handleCardClick = useCallback((product: TProduct) => {
     setClickedProduct(product);
     setIsModalOpen(true);
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   return (
