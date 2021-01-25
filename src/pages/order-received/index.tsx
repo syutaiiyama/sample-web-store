@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useOrder } from "../../contexts/order/order.context";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import * as uuid from "uuid";
 import { TCartItem } from "../../contexts/cart/cart.type";
 import { useRouter } from "next/router";
+import { useCart } from "../../contexts/cart/cart.context";
 
 const OrderReceivedPage: React.FC = () => {
   const router = useRouter();
   const { orderList } = useOrder();
+  const { clearCart } = useCart();
   const currentOrder = orderList[orderList.length - 1];
   let cartItemQuantity = 0;
   currentOrder.cart.cartItems.forEach((item: TCartItem) => {
     cartItemQuantity += item.quantity;
   });
+  useEffect(() => {
+    clearCart();
+  }, []);
 
   return (
     <div style={{ width: "100%" }}>

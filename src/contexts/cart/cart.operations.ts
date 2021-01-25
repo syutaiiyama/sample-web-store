@@ -1,6 +1,6 @@
 import { TCart, TCartItem, TPayment } from "./cart.type";
 import { INITIAL_STATE, reducer } from "./cart.reducer";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useLoadingModal } from "../loading/loading.context";
 import { updateCartItem, updateCartPayment } from "./cart.action";
 
@@ -98,7 +98,6 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
         tax: 0,
         shipping: 0,
       };
-      console.log(updatedCartItems);
       dispatch(updateCartItem(updatedCartItems));
       dispatch(updateCartPayment(updatedPayment));
       // const idToken = await apiClient.auth.getIdToken();
@@ -117,6 +116,20 @@ export const cartOperations = (initialState: TCart = INITIAL_STATE) => {
   const closeCartModal = () => {
     setIsCartModalOpen(false);
   };
+
+  useEffect(() => {
+    let subtotal = 0;
+    state.cartItems.forEach((item: TCartItem) => {
+      subtotal += item.quantity * item.product.price;
+    });
+    const updatedPayment: TPayment = {
+      total: Math.round(subtotal * 1.1),
+      subtotal: subtotal,
+      tax: Math.round(subtotal * 0.1),
+      shipping: 0,
+    };
+    dispatch(updateCartPayment(updatedPayment));
+  }, [state.cartItems]);
 
   return {
     cartItems: state.cartItems,

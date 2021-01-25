@@ -32,6 +32,13 @@ const CheckoutPage: React.FC = () => {
     if (!isAuthenticated) router.push("/");
   }, []);
 
+  useEffect(() => {
+    // カートの中身が無くなったらトップページに戻す
+    if (cartItems.length === 0) {
+      router.push("/");
+    }
+  }, [cartItems]);
+
   const handleCheckoutButtonClick = useCallback(() => {
     const today = new Date();
     const reshapedDate = convertDate(today);
@@ -49,7 +56,6 @@ const CheckoutPage: React.FC = () => {
       date: reshapedDate,
     };
     handleCheckout(order);
-    clearCart();
     router.push("/order-received");
   }, [cartItems, cartPayment, isAuthenticated, profile, address, card]);
 
