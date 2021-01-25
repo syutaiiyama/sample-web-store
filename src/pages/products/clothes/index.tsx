@@ -28,7 +28,7 @@ const ClothePage: React.FC = () => {
   return (
     <div style={{ width: "100%" }}>
       <Image
-        src={"/images/clothe.jpg"}
+        src={"/images/clothe.jpeg"}
         width={700}
         height={475}
         layout={"responsive"}

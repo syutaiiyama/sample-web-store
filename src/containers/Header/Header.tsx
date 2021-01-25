@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   TextField,
   IconButton,
@@ -50,8 +50,16 @@ export const Header: React.FC = () => {
   const { openCartModal, cartItems } = useCart();
   const { isAuthenticated, openAuthModal } = useUser();
   const [pageType, setPageType] = useState(PagesType.Book);
+  const [searchText, setSearchText] = useState<string>("");
   const { deviceType } = useApp();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleSearch = useCallback(() => {
+    router.push({
+      pathname: "/products/[item]",
+      query: { item: searchText },
+    });
+  }, [searchText]);
 
   useEffect(() => {
     if (router.pathname === PagesType.Book) {
@@ -62,6 +70,12 @@ export const Header: React.FC = () => {
       setPageType(PagesType.Food);
     }
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (!router.query.item) {
+      setSearchText("");
+    }
+  }, [router.query, router.pathname]);
 
   let cartItemQuantity = 0;
   cartItems.forEach((item: TCartItem) => {
@@ -79,11 +93,18 @@ export const Header: React.FC = () => {
           <>
             <TextField
               style={{ flexGrow: 1 }}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               variant={"outlined"}
               size={"small"}
               label={"検索"}
+              color={"primary"}
             />
-            <IconButton color={"primary"}>
+            <IconButton
+              onClick={() => handleSearch()}
+              color={"primary"}
+              disabled={searchText.length === 0}
+            >
               <SearchIcon />
             </IconButton>
           </>
@@ -140,8 +161,15 @@ export const Header: React.FC = () => {
               variant={"outlined"}
               size={"small"}
               label={"検索"}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              color={"primary"}
             />
-            <IconButton color={"primary"}>
+            <IconButton
+              onClick={() => handleSearch()}
+              color={"primary"}
+              disabled={searchText.length === 0}
+            >
               <SearchIcon />
             </IconButton>
           </>
