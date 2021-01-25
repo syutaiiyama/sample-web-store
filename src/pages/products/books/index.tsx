@@ -28,7 +28,7 @@ const BookPage: React.FC = () => {
   return (
     <div style={{ width: "100%" }}>
       <Image
-        src={"/images/book3.jpeg"}
+        src={"/images/book.jpeg"}
         width={700}
         height={475}
         layout={"responsive"}
