@@ -1,7 +1,7 @@
 import { TProduct } from "../../interfaces/products.type";
 
 const bookSample: TProduct = {
-  imageSrc: "/images/book_product.jpg",
+  imageUrl: "/images/book_product.jpg",
   name: "売れる商品はデザインで決まる",
   price: 1000,
   description:
@@ -23,7 +23,7 @@ export const testBooks = [
 ];
 
 const clothesSample: TProduct = {
-  imageSrc: "/images/clothe_product.jpg",
+  imageUrl: "/images/clothe_product.jpg",
   name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
   price: 699,
   description:
@@ -42,7 +42,7 @@ export const testClothes = [
 ];
 
 const foodSample: TProduct = {
-  imageSrc: "/images/food_product.jpg",
+  imageUrl: "/images/food_product.jpg",
   name: "国華園 食品 １５品目の国産野菜セット 15種1箱 常温 野菜",
   price: 2680,
   description:

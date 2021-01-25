@@ -5,8 +5,10 @@ import {
   Drawer,
   Badge,
   Button,
+  makeStyles,
+  Theme,
+  createStyles,
 } from "@material-ui/core";
-import styles from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import { HeaderIcon } from "./HeaderIcon";
@@ -21,7 +23,29 @@ import { useUser } from "../../contexts/user/user.context";
 import { useCart } from "../../contexts/cart/cart.context";
 import { TCartItem } from "../../contexts/cart/cart.type";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    headerWrapper: {
+      width: "100%",
+      maxWidth: "100%",
+      height: "80px",
+      boxSizing: "border-box",
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      position: "fixed",
+      zIndex: 1000,
+      top: 0,
+      left: 0,
+      backgroundColor: "#fff",
+      boxShadow: "0 3px 7px rgba(0, 0, 0, 0.2)",
+    },
+  })
+);
+
 export const Header: React.FC = () => {
+  const styles = useStyles();
   const router = useRouter();
   const { openCartModal, cartItems } = useCart();
   const { isAuthenticated, openAuthModal } = useUser();
@@ -46,7 +70,7 @@ export const Header: React.FC = () => {
 
   if (deviceType === "desktop")
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.headerWrapper}>
         <HeaderIcon pageType={pageType} />
         <CategorySelector pageType={pageType} />
         {router.pathname === "/checkout" ? (
@@ -103,7 +127,7 @@ export const Header: React.FC = () => {
     );
   if (deviceType === "mobile" || deviceType === "tablet")
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.headerWrapper}>
         <IconButton color={"primary"} onClick={() => setIsModalOpen(true)}>
           <MenuOutlinedIcon />
         </IconButton>

@@ -6,20 +6,21 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
+  useMediaQuery,
 } from "@material-ui/core";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useRouter } from "next/router";
 import { useUser } from "../../contexts/user/user.context";
-import style from "./SideMenu.module.css";
 
 export const SideMenu: React.FC = () => {
   const router = useRouter();
   const { signOut } = useUser();
+  const matches = useMediaQuery("(max-width: 960px)");
 
   return (
-    <Grid item xs={3} className={style.side_menu_wrapper}>
+    <Grid item xs={3} style={matches ? { display: "none" } : {}}>
       <Paper>
         <List style={{ padding: "30px" }}>
           <ListItem button onClick={() => router.push("/my-page/order-list")}>

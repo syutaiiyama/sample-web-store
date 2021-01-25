@@ -19,7 +19,7 @@ export const CartList: React.FC<CartListProps> = ({
         <ListItem divider key={index}>
           <div style={{ padding: "0 10px" }}>
             <Image
-              src={item.product.imageSrc}
+              src={item.product.imageUrl}
               width={100}
               height={100}
               layout={"fixed"}

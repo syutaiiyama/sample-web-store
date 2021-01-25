@@ -15,7 +15,7 @@ const FoodPage: React.FC = () => {
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
   const foodSample: TProduct = {
-    imageSrc: "/images/food_product2.png",
+    imageUrl: "/images/food_product2.png",
     name: "国華園 食品 １５品目の国産野菜セット 15種1箱 常温 野菜",
     price: 2680,
     description:

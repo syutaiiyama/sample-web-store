@@ -37,7 +37,7 @@ export const CartTable: React.FC<CartTableProps> = ({
           {cartItems?.map((item: TCartItem, index) => (
             <TableRow key={index}>
               <TableCell align={"center"}>
-                <Image src={item.product.imageSrc} width={200} height={200} />
+                <Image src={item.product.imageUrl} width={200} height={200} />
               </TableCell>
               <TableCell>{item.product.name}</TableCell>
               <TableCell>{item.quantity}</TableCell>

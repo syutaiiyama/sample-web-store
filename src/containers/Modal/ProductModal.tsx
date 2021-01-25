@@ -62,7 +62,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           >
             <Grid item>
               <Image
-                src={product.imageSrc}
+                src={product.imageUrl}
                 width={400}
                 height={400}
                 layout={"intrinsic"}

@@ -25,7 +25,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           }}
         >
           <Image
-            src={product.imageSrc}
+            src={product.imageUrl}
             width={400}
             height={400}
             layout={"intrinsic"}

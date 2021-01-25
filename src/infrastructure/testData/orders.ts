@@ -9,7 +9,7 @@ export const getTestOrders = () => {
         cartItems: [
           {
             product: {
-              imageSrc: "/images/book_product.jpg",
+              imageUrl: "/images/book_product.jpg",
               name: "売れる商品はデザインで決まる",
               price: 1000,
               description:
@@ -22,7 +22,7 @@ export const getTestOrders = () => {
           },
           {
             product: {
-              imageSrc: "/images/clothe_product.jpg",
+              imageUrl: "/images/clothe_product.jpg",
               name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
               price: 699,
               description:
@@ -46,7 +46,7 @@ export const getTestOrders = () => {
         cartItems: [
           {
             product: {
-              imageSrc: "/images/book_product.jpg",
+              imageUrl: "/images/book_product.jpg",
               name: "売れる商品はデザインで決まる",
               price: 1000,
               description:
@@ -59,7 +59,7 @@ export const getTestOrders = () => {
           },
           {
             product: {
-              imageSrc: "/images/clothe_product.jpg",
+              imageUrl: "/images/clothe_product.jpg",
               name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
               price: 699,
               description:
