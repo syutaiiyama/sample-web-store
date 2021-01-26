@@ -14,6 +14,7 @@ type ContextProps = {
   isAuthModalOpen: boolean;
   isAddressModalOpen: boolean;
   isCardModalOpen: boolean;
+  isSignUpModalOpen: boolean;
   error: string;
   fetchUser: () => void;
   signUp: (
@@ -32,6 +33,7 @@ type ContextProps = {
   closeAddressModal: () => void;
   openCardModal: () => void;
   closeCardModal: () => void;
+  toggleAuthModal: () => void;
 };
 
 const UserContext = createContext({} as ContextProps);

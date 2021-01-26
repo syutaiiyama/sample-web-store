@@ -11,30 +11,31 @@ import {
 import { useLoadingModal } from "../loading/loading.context";
 import * as GoogleAnalytics from "../../infrastructure/google_analytics/google-analytics";
 import { useRouter } from "next/router";
+import { testUser } from "../../infrastructure/testData/user";
 
-// NOTE: デモプロジェクトのため、実際にfirebaseへの問合せは行わない
 export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState<string>();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState<boolean>(false);
   const [isCardModalOpen, setIsCardModalOpen] = useState<boolean>(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);
   const { openLoadingModal, closeLoadingModal } = useLoadingModal();
   const router = useRouter();
 
   // firebaseへログイン状態の問合せ
   useEffect(() => {
-    // apiClient.auth.onAuthStateChanged(async (isLoggedIn) => {
-    //   if (!state.isAuthenticated && isLoggedIn) await fetchUser();
-    //   else if (!isLoggedIn) clearUser();
-    // });
+    apiClient.auth.onAuthStateChanged(async (isLoggedIn) => {
+      if (!state.isAuthenticated && isLoggedIn) await fetchUser();
+      else if (!isLoggedIn) clearUser();
+    });
   }, []);
 
-  // NOTE: 必ずtestUserが代入されるようになっている
   const fetchUser = async () => {
     try {
       const idToken = await apiClient.auth.getIdToken();
-      const { profile, address, card } = await apiClient.get.user(idToken);
+      const { profile, address } = await apiClient.get.user(idToken);
+      const card = testUser.card; // カード情報は固定する
       dispatch(updateProfileAction(profile));
       dispatch(updateUserAddressAction(address));
       dispatch(updateUserCreditCardAction(card));
@@ -65,7 +66,6 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
         profile.email,
         password
       );
-      // const idToken = "test-id-token";
       await apiClient.post.user(profile, idToken);
       await fetchUser();
       GoogleAnalytics.signUp();
@@ -81,7 +81,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const signIn = async (email: string, password: string) => {
     openLoadingModal("ログインしています...");
     try {
-      // await apiClient.auth.signInWithEmailAndPassword(email, password);
+      await apiClient.auth.signInWithEmailAndPassword(email, password);
       await fetchUser();
       closeAuthModal();
       GoogleAnalytics.signIn();
@@ -94,7 +94,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const signOut = async () => {
     openLoadingModal("ログアウトしています...");
     try {
-      // await apiClient.auth.signOut();
+      await apiClient.auth.signOut();
       clearUser();
       GoogleAnalytics.signOut();
       router.push("/");
@@ -111,7 +111,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       // if (difference.email !== user.email) {
       //   await user.updateEmail(difference.email);
       // }
-      dispatch(updateProfileAction(difference));
+      // dispatch(updateProfileAction(difference));
       const idToken = await apiClient.auth.getIdToken();
       await apiClient.patch.user(difference, idToken);
       await fetchUser();
@@ -124,11 +124,8 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
   const updateAddress = async (difference: TAddress) => {
     openLoadingModal("ユーザ情報更新中");
     try {
-      dispatch(updateUserAddressAction(difference));
+      // dispatch(updateUserAddressAction(difference));
       const idToken = await apiClient.auth.getIdToken();
-      // const reshapedDifference = {
-      //   address: { ...difference },
-      // };
       await apiClient.patch.address(difference, idToken);
       await fetchUser();
     } catch (e) {
@@ -137,15 +134,13 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       closeLoadingModal();
     }
   };
+
   const updateCard = async (difference: TCreditCard) => {
     openLoadingModal("ユーザ情報更新中");
     try {
-      dispatch(updateUserCreditCardAction(difference));
-      const idToken = await apiClient.auth.getIdToken();
-      // const reshapedDifference = {
-      //   card: { ...difference },
-      // };
-      // await apiClient.patch.user(reshapedDifference, idToken);
+      // dispatch(updateUserCreditCardAction(difference));
+      // const idToken = await apiClient.auth.getIdToken();
+      // await apiClient.patch.user(difference, idToken);
       await fetchUser();
     } catch (e) {
       setError(e.message);
@@ -179,12 +174,17 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     setIsCardModalOpen(false);
   };
 
+  const toggleAuthModal = () => {
+    setIsSignUpModalOpen(!isSignUpModalOpen);
+  };
+
   return {
     isAuthenticated: state.isAuthenticated,
     profile: state.profile,
     address: state.address,
     card: state.card,
     isAuthModalOpen,
+    isSignUpModalOpen,
     isAddressModalOpen,
     isCardModalOpen,
     error,
@@ -201,5 +201,6 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     closeAddressModal,
     openCardModal,
     closeCardModal,
+    toggleAuthModal,
   };
 };
