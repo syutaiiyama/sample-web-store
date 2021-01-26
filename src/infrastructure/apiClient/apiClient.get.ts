@@ -31,8 +31,10 @@ export const apiClientGet = {
   order: async (orderNo: string, idToken: string): Promise<TOrder> =>
     await apiClientBase.get<TOrder>(`/shop/order/${orderNo}`, idToken),
 
-  orders: async (idToken: string): Promise<Array<TOrder>> => getTestOrders(),
-  //(await apiClientBase.get<Array<TOrder>>("/orders", idToken)).data,
+  orders: async (
+    idToken: string
+  ): Promise<Array<TOrder>> => //getTestOrders(),
+    await apiClientBase.get<Array<TOrder>>("/shop/orders", idToken),
 
   cart: async (idToken: string): Promise<TCart> =>
     await apiClientBase.get<TCart>("/cart", idToken),

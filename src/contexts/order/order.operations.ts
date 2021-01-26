@@ -12,6 +12,7 @@ export const orderOperations = (
 ) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentOrder, setCurrentOrder] = useState<TOrder>();
+  const [orders, setOrders] = useState<Array<TOrder>>([]);
   const { openLoadingModal, closeLoadingModal } = useLoadingModal();
   const { fetchCart } = useCart();
   const router = useRouter();
@@ -49,9 +50,24 @@ export const orderOperations = (
     }
   };
 
+  const fetchOrders = async () => {
+    openLoadingModal("オーダーを取得しています");
+    try {
+      const idToken = await apiClient.auth.getIdToken();
+      const response = await apiClient.get.orders(idToken);
+      setOrders(response);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      closeLoadingModal();
+    }
+  };
+
   return {
     orderList: state.orderList,
+    orders,
     currentOrder,
+    fetchOrders,
     fetchSingleOrder,
     handleCheckout,
   };

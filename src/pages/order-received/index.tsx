@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useOrder } from "../../contexts/order/order.context";
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
-import * as uuid from "uuid";
 import { useRouter } from "next/router";
 import { useCart } from "../../contexts/cart/cart.context";
-import { TOrder, TOrderedProducts } from "../../contexts/order/order.type";
+import { TOrderedProducts } from "../../contexts/order/order.type";
+import { convertDateFromString } from "../../utils/converDate";
+import { useUser } from "../../contexts/user/user.context";
 
 const OrderReceivedPage: React.FC = () => {
   const router = useRouter();
   const { orderList, fetchSingleOrder, currentOrder } = useOrder();
   const { clearCart } = useCart();
+  const { isAuthenticated } = useUser();
   // const currentOrder = orderList[orderList.length - 1];
   let cartItemQuantity = 0;
   currentOrder?.products?.forEach((product: TOrderedProducts) => {
@@ -24,7 +26,11 @@ const OrderReceivedPage: React.FC = () => {
     clearCart();
   }, []);
 
-  console.log(currentOrder);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div style={{ width: "100%" }}>
@@ -45,11 +51,13 @@ const OrderReceivedPage: React.FC = () => {
           <Grid container item spacing={2}>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>注文番号</Typography>
-              <Typography>{uuid.v4()}</Typography>
+              <Typography>{currentOrder?.orderNo}</Typography>
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>日付</Typography>
-              <Typography>{currentOrder?.date}</Typography>
+              <Typography>
+                {convertDateFromString(currentOrder?.date)}
+              </Typography>
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>お支払額</Typography>
@@ -71,7 +79,9 @@ const OrderReceivedPage: React.FC = () => {
               </Grid>
               <Grid container item>
                 <Typography>注文日時：</Typography>
-                <Typography>{currentOrder?.date}</Typography>
+                <Typography>
+                  {convertDateFromString(currentOrder?.date)}
+                </Typography>
               </Grid>
               <Grid container item>
                 <Typography>お届け先：</Typography>

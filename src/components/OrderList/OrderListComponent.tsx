@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { OrderListTable } from "./OrderListTable";
+import { convertDate, convertDateFromString } from "../../utils/converDate";
 
 type OrderListComponentProps = {
   order: TOrder;
@@ -65,7 +66,9 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
         style={{ marginBottom: "10px" }}
       >
         <Grid container item>
-          <Typography variant={"body2"}>注文日: {order.date}</Typography>
+          <Typography variant={"body2"}>
+            注文日: {convertDateFromString(order.date)}
+          </Typography>
         </Grid>
         <Grid container item>
           <Typography variant={"body2"}>
