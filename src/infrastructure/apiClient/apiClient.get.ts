@@ -10,10 +10,11 @@ import {
   testProducts,
 } from "../testData/products";
 import { apiClientBase } from "./apiClient.base";
+import { TCart } from "../../contexts/cart/cart.type";
 
 export const apiClientGet = {
   user: async (idToken: string): Promise<TUser> =>
-    await apiClientBase.get<TUser>("/user", idToken), //testUser,
+    await apiClientBase.get<TUser>("/shop/user", idToken), //testUser,
 
   products: async (): Promise<Array<TProduct>> => //testProducts,
     await apiClientBase.get<Array<TProduct>>("/product"),
@@ -29,4 +30,7 @@ export const apiClientGet = {
 
   orders: async (idToken: string): Promise<Array<TOrder>> => getTestOrders(),
   //(await apiClientBase.get<Array<TOrder>>("/orders", idToken)).data,
+
+  cart: async (idToken: string): Promise<TCart> =>
+    await apiClientBase.get<TCart>("/cart", idToken),
 };
