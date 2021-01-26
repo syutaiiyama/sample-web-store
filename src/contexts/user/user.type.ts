@@ -1,5 +1,4 @@
 export type TUser = {
-  id: string;
   isAuthenticated: boolean;
   profile: TProfile;
   address: TAddress;

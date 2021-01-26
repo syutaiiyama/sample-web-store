@@ -28,6 +28,9 @@ export const apiClientGet = {
   foods: async (): Promise<Array<TProduct>> => testFoods,
   //(await apiClientBase.get<Array<TProduct>>("/product/foods", idToken)).data,
 
+  order: async (orderNo: string, idToken: string): Promise<TOrder> =>
+    await apiClientBase.get<TOrder>(`/shop/order/${orderNo}`, idToken),
+
   orders: async (idToken: string): Promise<Array<TOrder>> => getTestOrders(),
   //(await apiClientBase.get<Array<TOrder>>("/orders", idToken)).data,
 

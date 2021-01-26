@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useOrder } from "../../contexts/order/order.context";
 import { TOrder, TOrderedProducts } from "../../contexts/order/order.type";
 import { convertDate } from "../../utils/converDate";
+import * as uuid from "uuid";
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
@@ -32,16 +33,11 @@ const CheckoutPage: React.FC = () => {
     if (!isAuthenticated) router.push("/");
   }, []);
 
-  useEffect(() => {
-    // カートの中身が無くなったらトップページに戻す
-    if (cartItems.length === 0) {
-      router.push("/");
-    }
-  }, [cartItems]);
-
-  const handleCheckoutButtonClick = useCallback(() => {
+  const handleCheckoutButtonClick = useCallback(async () => {
     const today = new Date();
     const reshapedDate = convertDate(today);
+
+    // orderedProductsはバックエンドで生成するので、本来この変数は要らない
     const orderedProducts: Array<TOrderedProducts> = cartItems.map((item) => {
       return {
         name: item.product.name,
@@ -49,7 +45,10 @@ const CheckoutPage: React.FC = () => {
         quantity: item.quantity,
       };
     });
+
+    // orderはバックエンドで処理を行うので、本来この変数は要らない
     const order: TOrder = {
+      orderNo: uuid.v4(),
       user: {
         isAuthenticated: isAuthenticated,
         profile: profile,
@@ -60,8 +59,7 @@ const CheckoutPage: React.FC = () => {
       date: reshapedDate,
       payment: cartPayment,
     };
-    handleCheckout(order);
-    router.push("/order-received");
+    await handleCheckout(order);
   }, [cartItems, cartPayment, isAuthenticated, profile, address, card]);
 
   return (

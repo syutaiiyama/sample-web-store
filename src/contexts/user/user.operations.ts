@@ -35,7 +35,6 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     try {
       const idToken = await apiClient.auth.getIdToken();
       const { profile, address, card } = await apiClient.get.user(idToken);
-      console.log(profile, address, card);
       dispatch(updateProfileAction(profile));
       dispatch(updateUserAddressAction(address));
       dispatch(updateUserCreditCardAction(card));

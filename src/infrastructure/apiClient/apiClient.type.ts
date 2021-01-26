@@ -6,3 +6,7 @@ export type TPostCartItemRequest = {
 export type TPatchCartItemRequest = {
   quantity: number;
 };
+
+export type TPostOrderResponse = {
+  orderNo: string;
+};

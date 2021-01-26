@@ -4,6 +4,8 @@ import { orderOperations } from "./order.operations";
 
 type ContextProps = {
   orderList: Array<TOrder>;
+  currentOrder: TOrder;
+  fetchSingleOrder: (orderNo: string) => void;
   handleCheckout: (order: TOrder) => void;
 };
 
