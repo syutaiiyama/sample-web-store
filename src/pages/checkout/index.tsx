@@ -11,7 +11,7 @@ import { PaymentInfo } from "../../components/Checkout/PaymentInfo";
 import { RemarkField } from "../../components/Checkout/RemarkField";
 import { useRouter } from "next/router";
 import { useOrder } from "../../contexts/order/order.context";
-import { TOrder } from "../../contexts/order/order.type";
+import { TOrder, TOrderedProducts } from "../../contexts/order/order.type";
 import { convertDate } from "../../utils/converDate";
 
 const CheckoutPage: React.FC = () => {
@@ -42,6 +42,13 @@ const CheckoutPage: React.FC = () => {
   const handleCheckoutButtonClick = useCallback(() => {
     const today = new Date();
     const reshapedDate = convertDate(today);
+    const orderedProducts: Array<TOrderedProducts> = cartItems.map((item) => {
+      return {
+        name: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+      };
+    });
     const order: TOrder = {
       user: {
         isAuthenticated: isAuthenticated,
@@ -49,11 +56,9 @@ const CheckoutPage: React.FC = () => {
         address: address,
         card: card,
       },
-      cart: {
-        cartItems: cartItems,
-        payment: cartPayment,
-      },
+      products: orderedProducts,
       date: reshapedDate,
+      payment: cartPayment,
     };
     handleCheckout(order);
     router.push("/order-received");

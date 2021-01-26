@@ -69,7 +69,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
         </Grid>
         <Grid container item>
           <Typography variant={"body2"}>
-            合計: {order.cart.payment.total}円
+            合計: {order.payment.total}円
           </Typography>
         </Grid>
       </Grid>
@@ -121,7 +121,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
                 </Grid>
                 <Grid item>
                   <Typography variant={"body2"}>
-                    {order.cart.payment.subtotal}円
+                    {order.payment.subtotal}円
                   </Typography>
                 </Grid>
               </Grid>
@@ -131,7 +131,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
                 </Grid>
                 <Grid item>
                   <Typography variant={"body2"}>
-                    {order.cart.payment.shipping}円
+                    {order.payment.shipping}円
                   </Typography>
                 </Grid>
               </Grid>
@@ -141,7 +141,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
                 </Grid>
                 <Grid item>
                   <Typography variant={"body2"}>
-                    {order.cart.payment.tax}円
+                    {order.payment.tax}円
                   </Typography>
                 </Grid>
               </Grid>
@@ -150,7 +150,7 @@ export const OrderListComponent: React.FC<OrderListComponentProps> = ({
                   <Typography>合計</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography>{order.cart.payment.total}円</Typography>
+                  <Typography>{order.payment.total}円</Typography>
                 </Grid>
               </Grid>
             </Grid>

@@ -5,6 +5,7 @@ import * as uuid from "uuid";
 import { TCartItem } from "../../contexts/cart/cart.type";
 import { useRouter } from "next/router";
 import { useCart } from "../../contexts/cart/cart.context";
+import { TOrderedProducts } from "../../contexts/order/order.type";
 
 const OrderReceivedPage: React.FC = () => {
   const router = useRouter();
@@ -12,8 +13,8 @@ const OrderReceivedPage: React.FC = () => {
   const { clearCart } = useCart();
   const currentOrder = orderList[orderList.length - 1];
   let cartItemQuantity = 0;
-  currentOrder.cart.cartItems.forEach((item: TCartItem) => {
-    cartItemQuantity += item.quantity;
+  currentOrder.products.forEach((product: TOrderedProducts) => {
+    cartItemQuantity += product.quantity;
   });
   useEffect(() => {
     clearCart();
@@ -46,7 +47,7 @@ const OrderReceivedPage: React.FC = () => {
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>お支払額</Typography>
-              <Typography>{currentOrder.cart.payment.total}円</Typography>
+              <Typography>{currentOrder.payment.total}円</Typography>
             </Grid>
             <Grid container item md={3} sm={12} direction={"column"}>
               <Typography>お支払方法</Typography>
@@ -95,19 +96,19 @@ const OrderReceivedPage: React.FC = () => {
               </Grid>
               <Grid container item>
                 <Typography>小計{"　"}：</Typography>
-                <Typography>{currentOrder.cart.payment.subtotal}円</Typography>
+                <Typography>{currentOrder.payment.subtotal}円</Typography>
               </Grid>
               <Grid container item>
                 <Typography>消費税：</Typography>
-                <Typography>{currentOrder.cart.payment.tax}円</Typography>
+                <Typography>{currentOrder.payment.tax}円</Typography>
               </Grid>
               <Grid container item>
                 <Typography>配送料：</Typography>
-                <Typography>{currentOrder.cart.payment.shipping}円</Typography>
+                <Typography>{currentOrder.payment.shipping}円</Typography>
               </Grid>
               <Grid container item>
                 <Typography>合計{"　"}：</Typography>
-                <Typography>{currentOrder.cart.payment.total}円</Typography>
+                <Typography>{currentOrder.payment.total}円</Typography>
               </Grid>
             </Grid>
           </Grid>

@@ -1,5 +1,5 @@
 import React from "react";
-import { TOrder } from "../../contexts/order/order.type";
+import { TOrder, TOrderedProducts } from "../../contexts/order/order.type";
 import {
   Table,
   TableBody,
@@ -29,13 +29,13 @@ export const OrderListTable: React.FC<OrderListTableProps> = ({ order }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.cart.cartItems?.map((item: TCartItem, index) => (
+          {order.products?.map((product: TOrderedProducts, index) => (
             <TableRow key={index}>
-              <TableCell align={"center"}>{item.product.name}</TableCell>
-              <TableCell align={"center"}>{item.product.price}円</TableCell>
-              <TableCell align={"center"}>{item.quantity}</TableCell>
+              <TableCell align={"center"}>{product.name}</TableCell>
+              <TableCell align={"center"}>{product.price}円</TableCell>
+              <TableCell align={"center"}>{product.quantity}</TableCell>
               <TableCell align={"center"}>
-                {item.quantity * item.product.price}円
+                {product.quantity * product.price}円
               </TableCell>
             </TableRow>
           ))}
