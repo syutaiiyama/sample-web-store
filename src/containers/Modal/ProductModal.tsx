@@ -41,6 +41,16 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     closeModal();
   }, [quantity, product]);
 
+  // バックエンドがGCSに繋がっていないのでimageUrlはハードコーディング
+  let imageUrl;
+  if (product.category === "book") {
+    imageUrl = "/images/book_product2.png";
+  } else if (product.category === "clothe") {
+    imageUrl = "/images/clothe_product2.png";
+  } else {
+    imageUrl = "/images/food_product2.png";
+  }
+
   return (
     <div style={{ maxWidth: "90%", maxHeight: "90%", overflow: "scroll" }}>
       <div className={style.wrapper}>
@@ -62,7 +72,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
           >
             <Grid item>
               <Image
-                src={product.imageUrl}
+                src={imageUrl}
                 width={400}
                 height={400}
                 layout={"intrinsic"}

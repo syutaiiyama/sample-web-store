@@ -14,6 +14,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   handleClick,
 }) => {
   const { deviceType } = useApp();
+  let imageUrl;
+
+  // バックエンドがGCSに繋がっていないのでimageUrlはハードコーディング
+  if (product.category === "book") {
+    imageUrl = "/images/book_product2.png";
+  } else if (product.category === "clothe") {
+    imageUrl = "/images/clothe_product2.png";
+  } else {
+    imageUrl = "/images/food_product2.png";
+  }
 
   return (
     <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>
@@ -24,12 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             marginBottom: "10px",
           }}
         >
-          <Image
-            src={product.imageUrl}
-            width={400}
-            height={400}
-            layout={"intrinsic"}
-          />
+          <Image src={imageUrl} width={400} height={400} layout={"intrinsic"} />
         </div>
         <Typography variant={deviceType === "desktop" ? "body1" : "body2"}>
           {product.name}
