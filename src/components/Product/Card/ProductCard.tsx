@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { TProduct } from "../../../contexts/products/products.type";
 import { useApp } from "../../../contexts/app/app.context";
+import { generateTestImageUrl } from "../../../utils/generateTestImageUrl";
 
 type ProductCardProps = {
   product: TProduct;
@@ -14,16 +15,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   handleClick,
 }) => {
   const { deviceType } = useApp();
-  let imageUrl;
-
-  // バックエンドがGCSに繋がっていないのでimageUrlはハードコーディング
-  if (product.category === "book") {
-    imageUrl = "/images/book_product2.png";
-  } else if (product.category === "clothe") {
-    imageUrl = "/images/clothe_product2.png";
-  } else {
-    imageUrl = "/images/food_product2.png";
-  }
+  const imageUrl = generateTestImageUrl(product);
 
   return (
     <Grid item xl={3} lg={3} md={4} sm={6} xs={6}>

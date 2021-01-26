@@ -35,6 +35,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     try {
       const idToken = await apiClient.auth.getIdToken();
       const { profile, address, card } = await apiClient.get.user(idToken);
+      console.log(profile, address, card);
       dispatch(updateProfileAction(profile));
       dispatch(updateUserAddressAction(address));
       dispatch(updateUserCreditCardAction(card));
@@ -61,11 +62,11 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       if (password !== confirmPassword) {
         throw SyntaxError("パスワードが一致していません");
       }
-      // const idToken = await apiClient.auth.createUserWithEmailAndPassword(
-      //   profile.email,
-      //   password
-      // );
-      const idToken = "test-id-token";
+      const idToken = await apiClient.auth.createUserWithEmailAndPassword(
+        profile.email,
+        password
+      );
+      // const idToken = "test-id-token";
       await apiClient.post.user(profile, idToken);
       await fetchUser();
       GoogleAnalytics.signUp();
@@ -113,10 +114,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
       // }
       dispatch(updateProfileAction(difference));
       const idToken = await apiClient.auth.getIdToken();
-      const reshapedDifference = {
-        profile: { ...difference },
-      };
-      await apiClient.patch.user(reshapedDifference, idToken);
+      await apiClient.patch.user(difference, idToken);
       await fetchUser();
     } catch (e) {
       setError(e.message);
@@ -129,10 +127,10 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     try {
       dispatch(updateUserAddressAction(difference));
       const idToken = await apiClient.auth.getIdToken();
-      const reshapedDifference = {
-        address: { ...difference },
-      };
-      await apiClient.patch.user(reshapedDifference, idToken);
+      // const reshapedDifference = {
+      //   address: { ...difference },
+      // };
+      await apiClient.patch.address(difference, idToken);
       await fetchUser();
     } catch (e) {
       setError(e.message);
@@ -145,10 +143,10 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     try {
       dispatch(updateUserCreditCardAction(difference));
       const idToken = await apiClient.auth.getIdToken();
-      const reshapedDifference = {
-        card: { ...difference },
-      };
-      await apiClient.patch.user(reshapedDifference, idToken);
+      // const reshapedDifference = {
+      //   card: { ...difference },
+      // };
+      // await apiClient.patch.user(reshapedDifference, idToken);
       await fetchUser();
     } catch (e) {
       setError(e.message);

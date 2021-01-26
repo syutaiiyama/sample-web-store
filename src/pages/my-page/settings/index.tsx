@@ -12,7 +12,7 @@ import {
 import { SideMenu } from "../../../containers/SideMenu/SideMenu";
 import { InputForm } from "../../../components/Input/InputForm";
 import { useUser } from "../../../contexts/user/user.context";
-import { TAddress } from "../../../contexts/user/user.type";
+import { TAddress, TProfile } from "../../../contexts/user/user.type";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import { useRouter } from "next/router";
 
@@ -39,12 +39,14 @@ const SettingPage: React.FC = () => {
     profile,
     address,
     card,
+    updateProfile,
     updateAddress,
     isAuthenticated,
     openCardModal,
   } = useUser();
   const router = useRouter();
 
+  const [name, setName] = useState<string>(profile?.name);
   const [email, setEmail] = useState<string>(profile?.email);
   const [postalCode, setPostalCode] = useState<string>(address?.postalCode);
   const [prefecture, setPrefecture] = useState<string>(address?.prefecture);
@@ -52,6 +54,14 @@ const SettingPage: React.FC = () => {
   const [addressLine, setAddressLine] = useState<string>(address?.addressLine);
   const [building, setBuilding] = useState<string>(address?.building);
   const [tel, setTel] = useState<string>(address?.tel);
+
+  const handleProfileSave = async () => {
+    const updatedProfile: TProfile = {
+      name: name,
+      email: email,
+    };
+    await updateProfile(updatedProfile);
+  };
 
   const handleAddressSave = async () => {
     const updatedAddress: TAddress = {
@@ -83,6 +93,20 @@ const SettingPage: React.FC = () => {
                 <Grid container item spacing={4}>
                   <Grid container alignItems={"center"} item spacing={2}>
                     <Grid item xs={12} md={3}>
+                      <Typography>名前</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={9}>
+                      <TextField
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        variant={"outlined"}
+                        size={"small"}
+                        style={{ width: "100%" }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems={"center"} item spacing={2}>
+                    <Grid item xs={12} md={3}>
                       <Typography>メールアドレス</Typography>
                     </Grid>
                     <Grid item xs={12} md={9}>
@@ -95,21 +119,13 @@ const SettingPage: React.FC = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container alignItems={"center"} item spacing={2}>
-                    <Grid item xs={12} md={3}>
-                      <Typography>パスワード</Typography>
-                    </Grid>
-                    <Grid item xs={12} md={9}>
-                      <TextField
-                        variant={"outlined"}
-                        size={"small"}
-                        style={{ width: "100%" }}
-                      />
-                    </Grid>
-                  </Grid>
                 </Grid>
                 <Grid container item justify={"flex-end"}>
-                  <Button color={"primary"} variant={"contained"}>
+                  <Button
+                    onClick={() => handleProfileSave()}
+                    color={"primary"}
+                    variant={"contained"}
+                  >
                     保存
                   </Button>
                 </Grid>

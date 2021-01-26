@@ -8,6 +8,8 @@ import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import { useCart } from "../../contexts/cart/cart.context";
 import { TCartItem } from "../../contexts/cart/cart.type";
+import { useUser } from "../../contexts/user/user.context";
+import { generateTestImageUrl } from "../../utils/generateTestImageUrl";
 
 type ProductModalProps = {
   product: TProduct;
@@ -19,7 +21,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   closeModal,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { addToCart } = useCart();
+  const { addToCart, fetchCart } = useCart();
+  const { isAuthenticated, openAuthModal } = useUser();
 
   const handleAddQuantity = useCallback(() => setQuantity(quantity + 1), [
     quantity,
@@ -33,23 +36,21 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   }, [quantity]);
 
   const handleAddToCart = useCallback(async () => {
-    const addCartItem: TCartItem = {
-      product: product,
-      quantity: quantity,
-    };
-    await addToCart(addCartItem);
+    if (!isAuthenticated) {
+      closeModal();
+      openAuthModal();
+      return;
+    }
+    // const addCartItem: TCartItem = {
+    //   product: product,
+    //   quantity: quantity,
+    // };
+    await addToCart(product, quantity);
+    await fetchCart();
     closeModal();
   }, [quantity, product]);
 
-  // バックエンドがGCSに繋がっていないのでimageUrlはハードコーディング
-  let imageUrl;
-  if (product.category === "book") {
-    imageUrl = "/images/book_product2.png";
-  } else if (product.category === "clothe") {
-    imageUrl = "/images/clothe_product2.png";
-  } else {
-    imageUrl = "/images/food_product2.png";
-  }
+  const imageUrl = generateTestImageUrl(product);
 
   return (
     <div style={{ maxWidth: "90%", maxHeight: "90%", overflow: "scroll" }}>

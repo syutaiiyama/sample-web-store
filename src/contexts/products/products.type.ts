@@ -1,4 +1,5 @@
 export type TProduct = {
+  id: string;
   name: string;
   category?: TCategory;
   price: number;
