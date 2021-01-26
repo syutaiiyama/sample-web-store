@@ -3,6 +3,7 @@ import { IconButton, List, ListItem, Typography } from "@material-ui/core";
 import Image from "next/image";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
+import { generateTestImageUrl } from "../../utils/generateTestImageUrl";
 
 type CartListProps = {
   cartItems: Array<TCartItem>;
@@ -19,7 +20,7 @@ export const CartList: React.FC<CartListProps> = ({
         <ListItem divider key={index}>
           <div style={{ padding: "0 10px" }}>
             <Image
-              src={item.product.imageUrl}
+              src={generateTestImageUrl(item.product)}
               width={100}
               height={100}
               layout={"fixed"}

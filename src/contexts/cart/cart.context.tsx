@@ -5,11 +5,13 @@ import { MuiModal } from "../../components/Modal/MuiModal";
 import { CartModalDesktop } from "../../containers/Modal/CartModalDesktop";
 import { useApp } from "../app/app.context";
 import { CartModalMobile } from "../../containers/Modal/CartModalMobile";
+import { TProduct } from "../products/products.type";
 
 type ContextProps = {
   cartItems: Array<TCartItem>;
   cartPayment: TPayment;
-  addToCart: (cartItem: TCartItem) => void;
+  fetchCart: () => void;
+  addToCart: (product: TProduct, quantity: number) => void;
   removeFromCart: (cartItem: TCartItem) => void;
   clearCart: () => void;
   openCartModal: () => void;

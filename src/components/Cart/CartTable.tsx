@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import DeleteIcon from "@material-ui/icons/Delete";
 import React from "react";
+import { generateTestImageUrl } from "../../utils/generateTestImageUrl";
 
 type CartTableProps = {
   cartItems: Array<TCartItem>;
@@ -37,7 +38,11 @@ export const CartTable: React.FC<CartTableProps> = ({
           {cartItems?.map((item: TCartItem, index) => (
             <TableRow key={index}>
               <TableCell align={"center"}>
-                <Image src={item.product.imageUrl} width={200} height={200} />
+                <Image
+                  src={generateTestImageUrl(item.product)}
+                  width={200}
+                  height={200}
+                />
               </TableCell>
               <TableCell>{item.product.name}</TableCell>
               <TableCell>{item.quantity}</TableCell>

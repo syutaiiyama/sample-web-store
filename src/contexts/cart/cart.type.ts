@@ -6,6 +6,7 @@ export type TCart = {
 };
 
 export type TCartItem = {
+  id: string;
   product: TProduct;
   quantity;
 };
