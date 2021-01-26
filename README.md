@@ -2,11 +2,9 @@
 
 This is a really simple project that shows the usage of Next.js with TypeScript.
 
-## Deploy your own
+## Deploy URL
 
-Deploy the example using [Vercel](https://vercel.com):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+https://sample-web-store.vercel.app/
 
 ## How to use it?
 
