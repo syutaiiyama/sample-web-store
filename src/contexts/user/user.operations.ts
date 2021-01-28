@@ -126,7 +126,11 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
     try {
       // dispatch(updateUserAddressAction(difference));
       const idToken = await apiClient.auth.getIdToken();
-      await apiClient.patch.address(difference, idToken);
+      if (state.address.city) {
+        await apiClient.patch.address(difference, idToken);
+      } else {
+        await apiClient.post.address(difference, idToken);
+      }
       await fetchUser();
     } catch (e) {
       setError(e.message);
@@ -176,6 +180,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
 
   const toggleAuthModal = () => {
     setIsSignUpModalOpen(!isSignUpModalOpen);
+    setError("");
   };
 
   return {

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useUser } from "../../contexts/user/user.context";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import style from "./ProductModal.module.css";
 import { TAddress } from "../../contexts/user/user.type";
+import { isEmpty, isPostalCodeFilled, isTelFilled } from "../../utils/isEmpty";
 
 export const AddressModal: React.FC = () => {
   const { address, updateAddress, closeAddressModal } = useUser();
@@ -25,6 +26,16 @@ export const AddressModal: React.FC = () => {
     await updateAddress(updatedAddress);
     closeAddressModal();
   };
+
+  const isAddressFilled = useMemo(
+    () =>
+      !isPostalCodeFilled(postalCode) &&
+      !isEmpty(prefecture) &&
+      !isEmpty(city) &&
+      !isEmpty(addressLine) &&
+      !isTelFilled(tel),
+    [postalCode, prefecture, city, addressLine, tel]
+  );
 
   return (
     <div className={style.address_wrapper}>
@@ -143,6 +154,7 @@ export const AddressModal: React.FC = () => {
               color={"primary"}
               variant={"contained"}
               onClick={handleSave}
+              disabled={!isAddressFilled}
             >
               保存
             </Button>
