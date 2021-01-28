@@ -110,4 +110,8 @@
   .cart_wrapper {
     min-width: 0;
   }
+
+  .address_wrapper{
+    min-width: 0;
+  }
 }
