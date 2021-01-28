@@ -27,9 +27,10 @@ export const firebaseClient = {
 
   getIdToken: async () => {
     try {
-      const idToken = await auth.currentUser.getIdToken();
-      return idToken;
-      // return "test-id-token";
+      if (process.env.NODE_ENV === "development") {
+        return "test-id-token-user";
+      }
+      return await auth.currentUser.getIdToken();
     } catch (e) {
       console.log(e);
       throw getFirebaseAuthError(e.code);
