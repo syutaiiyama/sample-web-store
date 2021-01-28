@@ -80,6 +80,7 @@ const CheckoutPage: React.FC = () => {
               color={"primary"}
               variant={"contained"}
               onClick={handleCheckoutButtonClick}
+              disabled={cartItems.length === 0} //TODO: 住所の確認
             >
               注文確定
             </Button>
