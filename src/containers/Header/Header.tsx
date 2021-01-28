@@ -41,6 +41,22 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#fff",
       boxShadow: "0 3px 7px rgba(0, 0, 0, 0.2)",
     },
+    mobileHeaderWrapper: {
+      width: "100%",
+      maxWidth: "100%",
+      height: "80px",
+      boxSizing: "border-box",
+      padding: "5px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      position: "fixed",
+      zIndex: 1000,
+      top: 0,
+      left: 0,
+      backgroundColor: "#fff",
+      boxShadow: "0 3px 7px rgba(0, 0, 0, 0.2)",
+    },
   })
 );
 
@@ -148,7 +164,7 @@ export const Header: React.FC = () => {
     );
   if (deviceType === "mobile" || deviceType === "tablet")
     return (
-      <div className={styles.headerWrapper}>
+      <div className={styles.mobileHeaderWrapper}>
         <IconButton color={"primary"} onClick={() => setIsModalOpen(true)}>
           <MenuOutlinedIcon />
         </IconButton>
@@ -169,6 +185,7 @@ export const Header: React.FC = () => {
               onClick={() => handleSearch()}
               color={"primary"}
               disabled={searchText.length === 0}
+              style={{ paddingRight: "0" }}
             >
               <SearchIcon />
             </IconButton>
