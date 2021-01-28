@@ -1,7 +1,6 @@
 import { TUser } from "../../contexts/user/user.type";
 
 export const testUser: TUser = {
-  id: "test",
   isAuthenticated: true,
   profile: {
     name: "飯山秀太",
