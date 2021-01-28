@@ -4,7 +4,7 @@ import style from "./ProductModal.module.css";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 
 export const SignInModal: React.FC = () => {
-  const { signIn, toggleAuthModal } = useUser();
+  const { signIn, toggleAuthModal, error } = useUser();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
@@ -33,6 +33,11 @@ export const SignInModal: React.FC = () => {
             </Typography>
           </Grid>
         </Grid>
+        {error && (
+          <Grid item container justify={"center"}>
+            <Typography style={{ color: "red" }}>{error}</Typography>
+          </Grid>
+        )}
         <Grid
           item
           container

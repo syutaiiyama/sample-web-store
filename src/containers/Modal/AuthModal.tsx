@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import style from "./ProductModal.module.css";
+import React from "react";
 import { useUser } from "../../contexts/user/user.context";
 import { SignUpModal } from "./SignUpModal";
 import { SignInModal } from "./SignInModal";
