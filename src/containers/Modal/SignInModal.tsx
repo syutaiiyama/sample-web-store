@@ -55,6 +55,7 @@ export const SignInModal: React.FC = () => {
           </Grid>
           <Grid item style={{ width: "100%" }}>
             <TextField
+              type={"password"}
               style={{ width: "100%" }}
               label={"パスワード"}
               value={password}
