@@ -27,7 +27,7 @@ export const firebaseClient = {
 
   getIdToken: async () => {
     try {
-      if (process.env.NODE_ENV === "development") {
+      if (process.env.APP_ENV === "local") {
         return "test-id-token-user";
       }
       return await auth.currentUser.getIdToken();
