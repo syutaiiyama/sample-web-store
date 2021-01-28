@@ -1,7 +1,7 @@
 module.exports = {
   STRIPE_PUBLIC_KEY:
     "pk_test_51IADvcBeM107L3HFbZraDSvVeUZTPNwUmoRN1rMXSZaTJVgUWrauaX7qVJpWr8R3GQqfx3j48hnHWzkOV80uuZey007QrpjYVK",
-  API_URL: "http://localhost:8080",
+  API_URL: "https://sample-web-store-backend.herokuapp.com",
   FIREBASE_API_KEY: "AIzaSyD8bIyKrqXYifWK0EEnmIKTGqGuvR_AhxY",
   FIREBASE_AUTH_DOMAIN: "sample-web-store.firebaseapp.com",
   FIREBASE_PROJECT: "sample-web-store",

@@ -1,6 +1,7 @@
 import { TProduct } from "../../contexts/products/products.type";
 
 const bookSample: TProduct = {
+  id: "test-id",
   imageUrl: "/images/book_product2.png",
   name: "売れる商品はデザインで決まる",
   price: 1000,
@@ -24,6 +25,7 @@ export const testBooks = [
 ];
 
 const clothesSample: TProduct = {
+  id: "test-id",
   imageUrl: "/images/clothe_product2.png",
   name: "貴族風 ヨーロッパ風 洋服 仮装 ドレス ステージ衣装 ",
   price: 699,
@@ -44,6 +46,7 @@ export const testClothes = [
 ];
 
 const foodSample: TProduct = {
+  id: "test-id",
   imageUrl: "/images/food_product2.png",
   name: "国華園 食品 １５品目の国産野菜セット 15種1箱 常温 野菜",
   price: 2680,

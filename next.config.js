@@ -1,5 +1,3 @@
-const { withPlugins } = require("next-compose-plugins");
-const withOptimizedImages = require("next-optimized-images");
 const envStaging = require("./env/staging");
 const envLocal = require("./env/local");
 const envProduction = require("./env/production");
@@ -24,4 +22,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([withOptimizedImages], nextConfig);
+module.exports = nextConfig;
