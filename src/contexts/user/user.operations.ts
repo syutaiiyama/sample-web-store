@@ -176,6 +176,7 @@ export const userOperations = (initialState: TUser = INITIAL_STATE) => {
 
   const toggleAuthModal = () => {
     setIsSignUpModalOpen(!isSignUpModalOpen);
+    setError("");
   };
 
   return {
