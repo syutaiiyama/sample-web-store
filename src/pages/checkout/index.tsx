@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { CartTable } from "../../components/Cart/CartTable";
 import { useCart } from "../../contexts/cart/cart.context";
 import { useApp } from "../../contexts/app/app.context";
@@ -14,10 +14,11 @@ import { useOrder } from "../../contexts/order/order.context";
 import { TOrder, TOrderedProducts } from "../../contexts/order/order.type";
 import { convertDate } from "../../utils/converDate";
 import * as uuid from "uuid";
+import { isEmpty, isPostalCodeFilled, isTelFilled } from "../../utils/isEmpty";
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
-  const { cartItems, cartPayment, removeFromCart, clearCart } = useCart();
+  const { cartItems, cartPayment, removeFromCart } = useCart();
   const { handleCheckout } = useOrder();
   const { deviceType, containerSpacing } = useApp();
   const {
@@ -62,6 +63,22 @@ const CheckoutPage: React.FC = () => {
     await handleCheckout(order);
   }, [cartItems, cartPayment, isAuthenticated, profile, address, card]);
 
+  const isAddressFilled = useMemo(
+    () =>
+      !isPostalCodeFilled(address?.postalCode) &&
+      !isEmpty(address?.prefecture) &&
+      !isEmpty(address?.city) &&
+      !isEmpty(address?.addressLine) &&
+      !isTelFilled(address?.tel),
+    [
+      address?.postalCode,
+      address?.prefecture,
+      address?.city,
+      address?.addressLine,
+      address?.tel,
+    ]
+  );
+
   return (
     <div style={{ width: "100%" }}>
       {deviceType === "mobile" ? (
@@ -80,7 +97,7 @@ const CheckoutPage: React.FC = () => {
               color={"primary"}
               variant={"contained"}
               onClick={handleCheckoutButtonClick}
-              disabled={cartItems.length === 0} //TODO: 住所の確認
+              disabled={cartItems.length === 0 || !isAddressFilled}
             >
               注文確定
             </Button>

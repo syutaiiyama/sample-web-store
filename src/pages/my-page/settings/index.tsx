@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Button,
   createStyles,
@@ -15,6 +15,11 @@ import { useUser } from "../../../contexts/user/user.context";
 import { TAddress, TProfile } from "../../../contexts/user/user.type";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import { useRouter } from "next/router";
+import {
+  isEmpty,
+  isPostalCodeFilled,
+  isTelFilled,
+} from "../../../utils/isEmpty";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,6 +80,21 @@ const SettingPage: React.FC = () => {
     await updateAddress(updatedAddress);
   };
 
+  const isAddressFilled = useMemo(
+    () =>
+      !isPostalCodeFilled(postalCode) &&
+      !isEmpty(prefecture) &&
+      !isEmpty(city) &&
+      !isEmpty(addressLine) &&
+      !isTelFilled(tel),
+    [postalCode, prefecture, city, addressLine, tel]
+  );
+
+  const isProfileFilled = useMemo(() => !isEmpty(name) && !isEmpty(email), [
+    name,
+    email,
+  ]);
+
   useEffect(() => {
     if (!isAuthenticated) router.push("/");
   }, []);
@@ -125,6 +145,7 @@ const SettingPage: React.FC = () => {
                     onClick={() => handleProfileSave()}
                     color={"primary"}
                     variant={"contained"}
+                    disabled={!isProfileFilled}
                   >
                     保存
                   </Button>
@@ -181,6 +202,7 @@ const SettingPage: React.FC = () => {
                     color={"primary"}
                     variant={"contained"}
                     onClick={handleAddressSave}
+                    disabled={!isAddressFilled}
                   >
                     保存
                   </Button>
