@@ -60,6 +60,7 @@ export const SignUpModal: React.FC = () => {
           <Grid item style={{ width: "100%" }}>
             <TextField
               style={{ width: "100%" }}
+              type={"password"}
               label={"パスワード"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
