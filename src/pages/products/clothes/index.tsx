@@ -9,20 +9,16 @@ import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";
 import style from "../products.module.css";
 import { useProducts } from "../../../contexts/products/products.context";
+import { apiClient } from "../../../infrastructure/apiClient/apiClient";
 
-const ClothePage: React.FC = () => {
+function ClothePage({ clothes }) {
   const { containerSpacing } = useApp();
-  const { clothes, fetchProducts } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
   const handleCardClick = useCallback((product: TProduct) => {
     setClickedProduct(product);
     setIsModalOpen(true);
-  }, []);
-
-  useEffect(() => {
-    fetchProducts();
   }, []);
 
   return (
@@ -55,6 +51,19 @@ const ClothePage: React.FC = () => {
       </MuiModal>
     </div>
   );
-};
+}
+
+export async function getStaticProps() {
+  const fetchedProducts = await apiClient.get.products();
+  const clothes = fetchedProducts.filter(
+    (product) => product.category === "clothe"
+  );
+  return {
+    revalidate: 3600,
+    props: {
+      clothes,
+    },
+  };
+}
 
 export default ClothePage;

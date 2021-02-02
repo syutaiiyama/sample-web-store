@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import { ProductTitle } from "../../../components/Product/Title/ProductTitle";
 import { ProductCard } from "../../../components/Product/Card/ProductCard";
@@ -8,21 +8,16 @@ import { MuiModal } from "../../../components/Modal/MuiModal";
 import { ProductModal } from "../../../containers/Modal/ProductModal";
 import style from "../products.module.css";
 import { useApp } from "../../../contexts/app/app.context";
-import { useProducts } from "../../../contexts/products/products.context";
+import { apiClient } from "../../../infrastructure/apiClient/apiClient";
 
-const BookPage: React.FC = () => {
+function BookPage({ books }) {
   const { containerSpacing } = useApp();
-  const { books, fetchProducts } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [clickedProduct, setClickedProduct] = useState<TProduct>();
 
   const handleCardClick = useCallback((product: TProduct) => {
     setClickedProduct(product);
     setIsModalOpen(true);
-  }, []);
-
-  useEffect(() => {
-    fetchProducts();
   }, []);
 
   return (
@@ -55,6 +50,19 @@ const BookPage: React.FC = () => {
       </MuiModal>
     </div>
   );
-};
+}
+
+export async function getStaticProps() {
+  const fetchedProducts = await apiClient.get.products();
+  const books = fetchedProducts.filter(
+    (product) => product.category === "book"
+  );
+  return {
+    revalidate: 3600,
+    props: {
+      books,
+    },
+  };
+}
 
 export default BookPage;
