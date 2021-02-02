@@ -7,7 +7,6 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     router.replace("/products/books");
   });
-  console.log(process.env.TEST);
 
   return (
     <Head>
