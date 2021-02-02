@@ -59,6 +59,10 @@ export const getFirebaseAuthError = (
       return new FirebaseAuthError(
         "不具合が発生しました。お時間をおいて、もう一度お試しください。"
       );
+    case "auth/argument-error":
+      return new FirebaseAuthError(
+        "入力されたメールアドレスかパスワードが正しくありません。ご確認の上、やりなおしてください。"
+      );
     // SetSignInLinkToEmail
     // TODO
     // SignInWithEmailAndPassword
