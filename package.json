@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "local:api": "NODE_ENV=development API_ENV=local next",
-    "dev": "NODE_ENV=staging API_ENV=staging next",
+    "dev": "NODE_ENV=development API_ENV=staging next",
     "prod": "next build && next start",
     "build": "next build",
     "start": "next start",

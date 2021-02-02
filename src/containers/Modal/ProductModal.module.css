@@ -46,6 +46,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+  overflow: auto;
 }
 
 .card_wrapper {
@@ -109,5 +110,12 @@
 
   .cart_wrapper {
     min-width: 0;
+  }
+
+  .address_wrapper{
+    min-width: 0;
+    padding: 20px 20px 10px;
+    max-width: 90%;
+    max-height: 100%
   }
 }
