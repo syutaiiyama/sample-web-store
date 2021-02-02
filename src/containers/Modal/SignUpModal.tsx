@@ -61,7 +61,6 @@ export const SignUpModal: React.FC = () => {
             <TextField
               type={"password"}
               style={{ width: "100%" }}
-              type={"password"}
               label={"パスワード"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
